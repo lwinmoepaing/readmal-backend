@@ -104,6 +104,13 @@ const userSchema = new Schema({
 	// Author's stories is store story objectid Reference to Story Table
 	stories: [{type: Schema.Types.ObjectId, ref: 'Story'}],
 
+	// Current Token
+	// Hold for one single protected device .
+	current_token: {
+		type: String,
+		default: null,
+	},
+
 	// When User Buy some package, we need to fill this field,
 	// note: may be null value, when this user is free user.
 	package: {
@@ -122,6 +129,13 @@ const userSchema = new Schema({
 		type: Date,
 		default: null,
 		index: true
+	},
+
+	// When User is Baned for some reasons.
+	isBanedUser: {
+		type: Boolean,
+		default: false,
+		index: false,
 	}
 
 }, {

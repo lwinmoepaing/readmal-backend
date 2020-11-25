@@ -8,6 +8,7 @@ const { JWT_SECRET } = require('../../config')
 const { MANAGE_ERROR_MESSAGE } = require('../../lib/helper')
 const { errorResponse, successResponse } = require('../../lib/responseHandler')
 const { Auth_Register_Validator, Auth_Login_Validator } = require('./AuthValidator')
+const { updateCurrentToken } = require('./AuthHelper')
 
 const userImagePath = '/profile'
 
@@ -37,14 +38,22 @@ module.exports.CREATE_USER = async (req, res) => {
 			if (err || !user) {
 				return res.status(400).json(errorResponse(err))
 			}
-			req.login(user, {session: false}, (err) => {
+			req.login(user, {session: false}, async (err) => {
 				if (err) { res.status(400).json(errorResponse(err)) }
 				// Filters Data
 				const { _id, name, email } = user
 				const data = { _id, name, email }
 				// Set JWT Token
 				const token = jwt.sign(data, JWT_SECRET)
-				return res.json({ ...successResponse(data, 'Successfully Registered'), token})
+
+				try {
+					await updateCurrentToken(_id, token)
+				}
+				catch(e) {
+					console.log(e)
+				}
+
+				return res.json({ ...successResponse(user, 'Successfully Registered'), token})
 			})
 		})(req, res)
 	}
@@ -69,14 +78,22 @@ module.exports.LOGIN_USER = async (req, res) => {
 		if (err || !user) {
 			return res.status(400).json(errorResponse(err))
 		}
-		req.login(user, {session: false}, (err) => {
+		req.login(user, {session: false}, async (err) => {
 			if (err) { res.status(400).json(errorResponse(err)) }
+			// console.log('user', user)
 			// Filters Data
 			const { _id, name, email } = user
 			const data = { _id, name, email }
 			// Set JWT Token
 			const token = jwt.sign(data, JWT_SECRET)
-			return res.json({ ...successResponse(data, 'Successfully Login'), token})
+
+			try {
+				await updateCurrentToken(_id, token)
+			}
+			catch(e) {
+				console.log(e)
+			}
+			return res.json({ ...successResponse(user, 'Successfully Login'), token})
 		})
 	})(req, res)
 }
@@ -104,3 +121,5 @@ module.exports.GET_PROFILE_DATA = async (req, res) => {
 		res.status(401).json(errorResponse(e))
 	}
 }
+
+
