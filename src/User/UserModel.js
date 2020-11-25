@@ -70,7 +70,7 @@ const userSchema = new Schema({
 	facebook_social_id: {
 		type: String,
 		index: true,
-		default: '',
+		default: null,
 	},
 
 	// It's Optional
@@ -111,14 +111,14 @@ const userSchema = new Schema({
 		default: new Package('MONTHLY_SUBSCRIBE')
 	},
 
-	expired_at: {
+	expiredAt: {
 		type: Date,
 		default: null,
 		index: true
 	},
 
 	// Deleted At
-	deleted_at: {
+	deletedAt: {
 		type: Date,
 		default: null,
 		index: true
@@ -133,5 +133,6 @@ const userSchema = new Schema({
 userSchema.plugin(mongoosePaginate)
 
 const User = mongoose.model('User', userSchema)
+
 // Export User
 module.exports = User

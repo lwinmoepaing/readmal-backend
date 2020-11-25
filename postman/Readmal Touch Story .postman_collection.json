@@ -6,6 +6,64 @@
 	},
 	"item": [
 		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Fetching User Profile (Info)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/auth/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User ",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"example\",\r\n    \"email\": \"example@gmail.com\",\r\n    \"password\": \"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/auth",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth"
+							]
+						},
+						"description": "Create User With email but it's not useful in real,\r\n\r\nbcoz we gonna make facebook authorize."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Testing Init Route",
 			"request": {
 				"method": "GET",
@@ -23,12 +81,12 @@
 	],
 	"variable": [
 		{
-			"id": "7c79d5a5-8547-4989-933b-8fbda5d09bb7",
+			"id": "84764c84-4012-4d96-91bc-76e152bb3a00",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "22409c11-13a3-4531-a6ca-3de6c5d64bd3",
+			"id": "3feaa7ba-d63f-47cc-98b4-776759d96c5f",
 			"key": "token",
 			"value": ""
 		}

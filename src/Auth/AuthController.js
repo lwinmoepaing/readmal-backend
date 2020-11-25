@@ -9,6 +9,8 @@ const { MANAGE_ERROR_MESSAGE } = require('../../lib/helper')
 const { errorResponse, successResponse } = require('../../lib/responseHandler')
 const { Auth_Register_Validator, Auth_Login_Validator } = require('./AuthValidator')
 
+const userImagePath = '/profile'
+
 /**
  * @desc: CREATE USER
  */
@@ -85,16 +87,19 @@ module.exports.LOGIN_USER = async (req, res) => {
  */
 module.exports.GET_PROFILE_DATA = async (req, res) => {
 	try {
-		console.log('req.user.email', req.user.email)
-		const user = await User
+		// console.log('req.user.email', req.user.email)
+		let user = await User
 			.findOne({ email: req.user.email })
-			.select('name email image')
-
+			.select('-__v -updatedAt -createdAt -deletedAt -stories')
 		if(!user) {
 			throw new Error ('User Not Found ')
 		}
 
-		res.json(successResponse(user, 'Successfully Fetching User Profile'))
+		user.image = `${userImagePath}/${user.image}`
+
+		res.json(
+			successResponse(user,'Successfully Fetching User Profile')
+		)
 	} catch (e) {
 		res.status(401).json(errorResponse(e))
 	}
