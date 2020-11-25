@@ -1,6 +1,7 @@
-# MoveMoveBlog Backend
+# Readmal Backend
 
-> Move Move Test Backend Api for Blog Tiny System
+> Readmal Backend Api for touch story system
+>  
 
 ## Build Setup
 
@@ -12,12 +13,16 @@ $ copy .env.example .env
 # install dependencies
 $ yarn install
 
-# serve with hot reload at localhost:3000 for developing
+# serve with hot reload at localhost:3000 for developing ||  :5000 for production
 $ yarn run dev
 
 # build for production and launch server
 $ yarn start
 
 ```
+
+## Database Io
+
+https://dbdiagram.io/d/5edcb5ea9ea313663b3a297f
 
 
