@@ -14,6 +14,12 @@ const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost/readmal'
 const ROLES = ['AUTHOR', 'USER', 'PREMIUM_USER', 'PREMIUM_AUTHOR', 'ADMIN']
 
 /**
+ * RelationShip State
+ * @constant {['Single', 'In a relationship', 'Married', 'It\'s a complicated']}
+ */
+const RELATIONSHIP_STATE = ['Single', 'In a relationship', 'Married', 'It\'s a complicated']
+
+/**
  * Custom Paginate Labels with Mongoose-Paginate-V2
  * @doc : https://github.com/aravindnc/mongoose-paginate-v2#with-custom-return-labels
  */
@@ -27,14 +33,14 @@ const PAGINATE_LABELS =  {
 	meta: 'meta'
 }
 
-const config = {
+
+module.exports = {
 	API_VERSION: '/api/v1',
 	API_KEY: process.env.API_KEY,
 	JWT_SECRET,
 	MONGO_URI,
 	ROLES,
+	RELATIONSHIP_STATE,
 	PAGINATE_LABELS,
 	PAGINATE_LIMIT: 8
 }
-
-module.exports = config
