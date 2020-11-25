@@ -15,10 +15,7 @@ const checkAndMakeDirectory = async (	callback ) => {
 		if (!fs.existsSync(dir)){
 			return fs.mkdirSync(dir)
 		}
-	})).then(() => {
-		console.log('All Make Dirctories')
-		callback()
-	})
+	})).then(callback)
 }
 
 

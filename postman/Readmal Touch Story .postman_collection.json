@@ -1,0 +1,37 @@
+{
+	"info": {
+		"_postman_id": "053ae75b-00ad-4f6e-8ffa-a2224e270e2d",
+		"name": "Readmal Touch Story ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Testing Init Route",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				},
+				"description": "This is only to know testing route."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "7c79d5a5-8547-4989-933b-8fbda5d09bb7",
+			"key": "url",
+			"value": ""
+		},
+		{
+			"id": "22409c11-13a3-4531-a6ca-3de6c5d64bd3",
+			"key": "token",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
