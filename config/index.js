@@ -9,9 +9,9 @@ const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost/readmal'
 
 /**
  * Roles mean Auth'roles
- * @constant {'admin', 'user'} enum
+ * @constant {['AUTHOR', 'USER', 'PREMIUM_USER', 'PREMIUM_AUTHOR', 'ADMIN']} enum
  */
-const ROLES = ['Admin', 'User']
+const ROLES = ['AUTHOR', 'USER', 'PREMIUM_USER', 'PREMIUM_AUTHOR', 'ADMIN']
 
 /**
  * Custom Paginate Labels with Mongoose-Paginate-V2
