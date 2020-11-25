@@ -33,7 +33,7 @@
 					"response": []
 				},
 				{
-					"name": "Create User ",
+					"name": "Register User  ( Creat )",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -59,6 +59,33 @@
 						"description": "Create User With email but it's not useful in real,\r\n\r\nbcoz we gonna make facebook authorize."
 					},
 					"response": []
+				},
+				{
+					"name": "Login with Email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"example@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -81,12 +108,12 @@
 	],
 	"variable": [
 		{
-			"id": "84764c84-4012-4d96-91bc-76e152bb3a00",
+			"id": "a9fbdae6-7bec-4367-8a04-cfcb979a6879",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "3feaa7ba-d63f-47cc-98b4-776759d96c5f",
+			"id": "52307194-5d20-4411-a51f-c23286b09932",
 			"key": "token",
 			"value": ""
 		}
