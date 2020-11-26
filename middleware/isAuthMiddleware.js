@@ -23,6 +23,7 @@ module.exports = (req, res, next) => {
 			// If same token, we should go next step
 			const isMatchToken = requestToken === userInsideDb.current_token
 			if (isMatchToken) {
+				req.user = userInsideDb
 				return next()
 			}
 
