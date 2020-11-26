@@ -156,10 +156,8 @@ const userSchema = new Schema({
 	// If premiun_author set 5 or something like that
 	story_monthly_count: {
 		type: Number,
-		default: 0,
+		default: 3,
 	},
-
-
 
 	// Current Token
 	// Hold for one single protected device .
