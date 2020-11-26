@@ -45,6 +45,10 @@ const userAchievementSchema = new Schema({
 		type: String,
 		default: '',
 	},
+	story_war_image: {
+		type: String,
+		default: 'storywar.jpg'
+	},
 	story_war_id: {
 		type: Schema.Types.ObjectId,
 		ref: 'StoryWar',
