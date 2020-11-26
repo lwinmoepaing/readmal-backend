@@ -1,3 +1,4 @@
+var { ObjectId } = require('mongoose').mongo
 const User = require('../src/User/UserModel')
 const bcrypt = require('bcrypt')
 
@@ -8,18 +9,21 @@ module.exports = async () => {
 
 	const users = [
 		{
+			_id: ObjectId('5fbff7edc2f87522b43f3785'),
 			name: 'Lwin Moe Paing',
 			email: 'lwinmoepaing007@gmail.com',
 			password,
 			role: 'ADMIN'
 		},
 		{
+			_id: ObjectId('5fbff7edc2f87522b43f3787'),
 			name: 'Mg Author',
 			email: 'author@gmail.com',
 			password,
 			role: 'AUTHOR'
 		},
 		{
+			_id: ObjectId('5fbff7c6e547fd3cec0fbcf7'),
 			name: 'Mg User',
 			email: 'user@gmail.com',
 			password,
