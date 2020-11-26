@@ -85,7 +85,8 @@ app.get('/', (req, res) => {
 routerService(app)
 
 /**
- * Call Seeder
+ * If Seeding is true in Env File,
+ * We'll make seeding
  */
 if (process.env.IS_SEEDING === 'true') {
 	// is Seeding Call

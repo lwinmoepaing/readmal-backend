@@ -110,14 +110,78 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "Story",
+			"item": [
+				{
+					"name": "Create Story [ User, Admin ]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Some Title",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "Horror",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"value": "story.jpg",
+									"type": "text"
+								},
+								{
+									"key": "addable_episode_count",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "is_including_premium",
+									"value": "false",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/story",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"story"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Testing Init Route",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}",
+					"raw": "{{base_url}}",
 					"host": [
-						"{{url}}"
+						"{{base_url}}"
 					]
 				},
 				"description": "This is only to know testing route."
@@ -127,12 +191,12 @@
 	],
 	"variable": [
 		{
-			"id": "9479ad71-e583-49af-93f5-e858d6e4af2c",
+			"id": "17aace27-d0ae-455c-91a3-27238af31f94",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "22969099-43bb-41c5-9de8-7965276d80b7",
+			"id": "355246eb-0459-404a-ac44-1e29b17bf6ba",
 			"key": "token",
 			"value": ""
 		}
