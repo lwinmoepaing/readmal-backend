@@ -31,7 +31,7 @@ checkAndMakeDirectory( () => {
 	server.listen(port, () => {
 		const Console = console
 		Console.log('\n============ Server Start ==============\n')
-		Console.log(`Express server listening on port \n${process.env.BASE_URL}:${server.address().port}`)
+		Console.log(`Express server listening on port \n${process.env.BASE_URL}`)
 	})
 	server.on('error', onError)
 	server.on('listening', onListening)
