@@ -7,7 +7,11 @@ Joi.objectId = require('joi-objectid')(Joi)
 /**
  * User Update Validator
  */
-const Story_Create_Validator = ({ body }) => {
+const Story_Create_Validator = ({ body, user }) => {
+
+	const userRole = user.role
+	const isAdmin =  userRole === 'ADMIN'
+
 	const schema = Joi.object().keys({
 		// If get or not, we don't care
 		// if not default is 'story.jpg' so dont worry
@@ -20,13 +24,16 @@ const Story_Create_Validator = ({ body }) => {
 		category: Joi.string().valid(...BOOK_CATEGORIES).required(),
 
 		// Description: If at least string "" must be included
-		description: Joi.string().trim(true).required(),
+		description: Joi.string().trim(true).optional(),
 
-		// Episode Count, When Admin Create Story, we need to settle it
-		addable_episode_count: Joi.number(),
+		// Episode Count: When Admin Create Story, we need to settle it
+		addable_episode_count: isAdmin ? Joi.number().required() : Joi.number() ,
 
-		// Is Including Premium Episodes, When Admin Create Story, we need to settle it
-		is_including_premium: Joi.boolean(),
+		// Is Including Premium Episodes: When Admin Create Story, we need to settle it
+		is_including_premium: isAdmin ? Joi.boolean().required() : Joi.boolean() ,
+
+		// You Need Author Id: When Admin Create Story
+		author: isAdmin ? Joi.objectId().required(): Joi.objectId(),
 
 	})
 	return schema.validate({ ...body}, {abortEarly: false})
