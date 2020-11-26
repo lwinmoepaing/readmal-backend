@@ -204,6 +204,13 @@ const userSchema = new Schema({
 	timestamps: true,
 })
 
+// Find One Or Creata is Custom
+// For Seeding
+userSchema.static('findOneOrCreate', async function findOneOrCreate(condition, doc) {
+	const one = await this.findOne(condition)
+
+	return one || this.create(doc)
+})
 
 // Plugin Paginate
 userSchema.plugin(mongoosePaginate)

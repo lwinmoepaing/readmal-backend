@@ -14,6 +14,7 @@ const errorHandler = require('./lib/errorHandler')
 const routerService = require('./services/routerService')
 const connectDb = require('./services/dbConnect')
 const Logger = require('./services/logger')
+const seederService = require('./services/seederService')
 
 // Dotenv (.env) Configuration
 require('dotenv').config()
@@ -82,6 +83,14 @@ app.get('/', (req, res) => {
  * @directories : '/router/web/*' and '/router/api/*'
  */
 routerService(app)
+
+/**
+ * Call Seeder
+ */
+if (process.env.IS_SEEDING === 'true') {
+	// is Seeding Call
+	seederService()
+}
 
 /**
  * 404 Handler
