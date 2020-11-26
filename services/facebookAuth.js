@@ -75,7 +75,7 @@ module.exports = (passport) => {
 					const password = await bcrypt.hash(process.env.READMAL_SECRET, salt)
 					const user = new User({
 						name: profile.displayName,
-						email: isGetEmailFromFbAccount ? emailFromFb : null ,
+						email: emailFromFb ,
 						password: password,
 						facebook_social_id: profile.id,
 					})
