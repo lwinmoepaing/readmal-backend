@@ -10,7 +10,7 @@ const { errorResponse, successResponse } = require('../../lib/responseHandler')
 const { Auth_Register_Validator, Auth_Login_Validator } = require('./AuthValidator')
 const { updateCurrentToken } = require('./AuthHelper')
 
-const userImagePath = '/profile'
+const userImagePath = 'profile'
 
 /**
  * @desc: CREATE USER
@@ -107,12 +107,12 @@ module.exports.GET_PROFILE_DATA = async (req, res) => {
 		// console.log('req.user.email', req.user.email)
 		let user = await User
 			.findOne({ email: req.user.email })
-			.select('-__v -updatedAt -createdAt -deletedAt -stories')
+			.select('-__v -updatedAt -createdAt -deletedAt -stories -current_token -facebook_social_id')
 		if(!user) {
 			throw new Error ('User Not Found ')
 		}
 
-		user.image = `${userImagePath}/${user.image}`
+		user.image = `${process.env.BASE_URL}/${userImagePath}/${user.image}`
 
 		res.json(
 			successResponse(user,'Successfully Fetching User Profile')

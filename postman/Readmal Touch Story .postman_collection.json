@@ -86,6 +86,25 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Login With Facebook Account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/auth/social/facebook",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"social",
+								"facebook"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -108,12 +127,12 @@
 	],
 	"variable": [
 		{
-			"id": "a9fbdae6-7bec-4367-8a04-cfcb979a6879",
+			"id": "9479ad71-e583-49af-93f5-e858d6e4af2c",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "52307194-5d20-4411-a51f-c23286b09932",
+			"id": "22969099-43bb-41c5-9de8-7965276d80b7",
 			"key": "token",
 			"value": ""
 		}

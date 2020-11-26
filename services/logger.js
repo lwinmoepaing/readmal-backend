@@ -18,7 +18,7 @@ morgan.token('date', () => {
 })
 
 morgan.token('user', (req) => {
-	return  req.user ? `UserId:${req.user._id} Name:"${req.user.name}"`: '"Guest"'
+	return  req.user ? `UserId: "${req.user._id}" Name:"${req.user.name}"`: '"Guest"'
 })
 
 morgan.format('loggerCustomFormat', '[:date[clf]] :method ":url", Status :status, ContentLength :res[content-length] - :response-time ms, :user')

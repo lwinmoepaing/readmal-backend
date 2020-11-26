@@ -4,6 +4,7 @@ const router = express.Router()
 // Importing Controller
 const AuthController = require('../../src/Auth/AuthController')
 const isAuthMiddleware = require('../../middleware/isAuthMiddleware')
+const passport = require('passport')
 
 
 /**
@@ -27,5 +28,30 @@ router.get('/me', isAuthMiddleware, AuthController.GET_PROFILE_DATA)
  */
 
 router.post('/', AuthController.CREATE_USER)
+
+/**
+ * Login With Social
+ * Example, Facebook, Twitter,
+ */
+router.get('/social/facebook',
+	passport.authenticate('facebook',{ scope: ['public_profile', 'email'] })
+)
+
+// successRedirect : process.env.API_URL + '/' + 'successLogin',
+
+
+router.get('/social/facebook/callback',
+	passport.authenticate('facebook', {
+		session: false,
+		failureRedirect: '/404',
+	}),
+	function(req, res) {
+		// Successful authentication, redirect home.
+		res.redirect(process.env.API_URL + '/auth/' + 'successLogin?token=' + req.user )
+	})
+
+router.get('/successLogin', (req, res) => {
+	res.status(200).json({success: true, token: req.query.token})
+})
 
 module.exports = router

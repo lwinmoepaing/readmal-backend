@@ -21,6 +21,11 @@ require('dotenv').config()
 // Require Locale Passport Config
 require('./services/passport')(passport)
 
+// Facebook Auth Passport Register
+app.use(passport.initialize())
+// app.use(passport.session())
+require('./services/facebookAuth')(passport)
+
 // Connect To Database
 connectDb()
 
