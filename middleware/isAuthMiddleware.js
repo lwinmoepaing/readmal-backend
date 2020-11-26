@@ -16,6 +16,10 @@ module.exports = (req, res, next) => {
 			// Fetch user data in db, bcoz all we gotta make sure for single device
 			const userInsideDb = await User.findById(user._id)
 
+			if (!userInsideDb) {
+				return res.status(401).json(errorResponse(new Error('User Not Found!!')))
+			}
+
 			// If same token, we should go next step
 			const isMatchToken = requestToken === userInsideDb.current_token
 			if (isMatchToken) {
