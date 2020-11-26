@@ -30,7 +30,8 @@ checkAndMakeDirectory( () => {
 	const server = http.createServer(app)
 	server.listen(port, () => {
 		const Console = console
-		Console.log(`Express server listening on port localhost:${server.address().port}`)
+		Console.log('\n============ Server Start ==============\n')
+		Console.log(`Express server listening on port \n${process.env.BASE_URL}:${server.address().port}`)
 	})
 	server.on('error', onError)
 	server.on('listening', onListening)
@@ -96,6 +97,7 @@ checkAndMakeDirectory( () => {
 			? `pipe ${addr}`
 			: `port ${addr.port}`
 		Console.log(`Listening on ${bind}`)
+		Console.log('\n========================================\n')
 	}
 })
 
