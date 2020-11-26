@@ -11,7 +11,7 @@ const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost/readmal'
  * Roles mean Auth'roles
  * @constant {['AUTHOR', 'USER', 'PREMIUM_USER', 'PREMIUM_AUTHOR', 'ADMIN']} enum
  */
-const ROLES = ['AUTHOR', 'USER', 'PREMIUM_USER', 'PREMIUM_AUTHOR', 'ADMIN']
+const ROLES = ['AUTHOR', 'USER', 'PREMIUM_USER', 'PREMIUM_AUTHOR', 'ADMIN', 'FINANCE', 'OPERATION', 'CUSTOMER_SERVICE']
 
 /**
  * RelationShip State
@@ -23,6 +23,11 @@ const RELATIONSHIP_STATE = ['Single', 'In a relationship', 'Married', 'It\'s a c
  * Throphy Ranks
  */
 const THROPHY_RANKS = ['Champion', 'First_RunnerUp', 'Second_RunnerUp', 'People_Choice', 'Canditator']
+
+/**
+ * Book Categories
+ */
+const BOOK_CATEGORIES = ['Horror', 'Comedy', 'Drama', 'Detective']
 
 /**
  * Custom Paginate Labels with Mongoose-Paginate-V2
@@ -48,5 +53,6 @@ module.exports = {
 	RELATIONSHIP_STATE,
 	PAGINATE_LABELS,
 	PAGINATE_LIMIT: 8,
-	THROPHY_RANKS
+	THROPHY_RANKS,
+	BOOK_CATEGORIES
 }
