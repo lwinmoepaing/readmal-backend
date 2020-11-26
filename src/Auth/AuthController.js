@@ -93,7 +93,7 @@ module.exports.LOGIN_USER = async (req, res) => {
 			catch(e) {
 				console.log(e)
 			}
-			return res.json({ ...successResponse(user, 'Successfully Login'), token})
+			return res.status(200).json({ ...successResponse(user, 'Successfully Login'), token})
 		})
 	})(req, res)
 }
@@ -114,12 +114,25 @@ module.exports.GET_PROFILE_DATA = async (req, res) => {
 
 		user.image = `${process.env.BASE_URL}/${userImagePath}/${user.image}`
 
-		res.json(
+		res.status(200).json(
 			successResponse(user,'Successfully Fetching User Profile')
 		)
 	} catch (e) {
 		res.status(401).json(errorResponse(e))
 	}
+}
+
+/**
+ * @desc: Response Token when Login with Facebook
+ */
+module.exports.LOGIN_WITH_FACEBOOK = (req, res) => {
+	return res.status(200).json({ ...successResponse(null, 'Successfully Login'), token: req.query.token})
+}
+
+
+module.exports.LOGIN_WITH_FACEBOOK_CALLBACK = (req, res) => {
+	// Successful authentication, redirect home.
+	res.redirect(process.env.API_URL + '/auth/' + 'successLogin?token=' + req.user )
 }
 
 

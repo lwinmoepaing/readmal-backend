@@ -45,13 +45,8 @@ router.get('/social/facebook/callback',
 		session: false,
 		failureRedirect: '/404',
 	}),
-	function(req, res) {
-		// Successful authentication, redirect home.
-		res.redirect(process.env.API_URL + '/auth/' + 'successLogin?token=' + req.user )
-	})
+	AuthController.LOGIN_WITH_FACEBOOK_CALLBACK)
 
-router.get('/successLogin', (req, res) => {
-	res.status(200).json({success: true, token: req.query.token})
-})
+router.get('/successLogin', AuthController.LOGIN_WITH_FACEBOOK)
 
 module.exports = router

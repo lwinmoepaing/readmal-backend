@@ -85,6 +85,7 @@ module.exports = (passport) => {
 					return done(null, currentToken)
 				}
 				catch(e) {
+					console.log('Error Inside Facebook Authen', e)
 					return done(e)
 				}
 			})
