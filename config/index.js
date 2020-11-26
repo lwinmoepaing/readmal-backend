@@ -20,6 +20,11 @@ const ROLES = ['AUTHOR', 'USER', 'PREMIUM_USER', 'PREMIUM_AUTHOR', 'ADMIN']
 const RELATIONSHIP_STATE = ['Single', 'In a relationship', 'Married', 'It\'s a complicated']
 
 /**
+ * Throphy Ranks
+ */
+const THROPHY_RANKS = ['Champion', 'First_RunnerUp', 'Second_RunnerUp', 'People_Choice', 'Canditator']
+
+/**
  * Custom Paginate Labels with Mongoose-Paginate-V2
  * @doc : https://github.com/aravindnc/mongoose-paginate-v2#with-custom-return-labels
  */
@@ -42,5 +47,6 @@ module.exports = {
 	ROLES,
 	RELATIONSHIP_STATE,
 	PAGINATE_LABELS,
-	PAGINATE_LIMIT: 8
+	PAGINATE_LIMIT: 8,
+	THROPHY_RANKS
 }

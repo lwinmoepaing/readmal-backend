@@ -25,4 +25,9 @@ $ yarn start
 
 https://dbdiagram.io/d/5edcb5ea9ea313663b3a297f
 
+## PostMan Collection
 
+inside
+
+```postman/Readmal ... environment.json```
+```postman/Readmal ... collection.json```
