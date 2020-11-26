@@ -34,7 +34,7 @@ const storySchema = new Schema({
 		index: true
 	},
 
-	// Category for Searching
+	// Category for Searching so it must be index
 	category: {
 		type: String,
 		enum: BOOK_CATEGORIES,
@@ -47,12 +47,6 @@ const storySchema = new Schema({
 	description: {
 		type: String,
 		default: '',
-	},
-
-	is_show_description: {
-		type: Boolean,
-		required: true,
-		default: false,
 	},
 
 	// When Author is publishing story, we can access to edit this story
