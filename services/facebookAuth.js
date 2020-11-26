@@ -14,7 +14,7 @@ const facebookStrategy = require('passport-facebook').Strategy
 
 // Model Import
 const User = require('../src/User/UserModel')
-const { updateCurrentToken } = require('../src/Auth/AuthHelper')
+const { updateCurrentToken, updateCurrentTokenAndFacebookId } = require('../src/Auth/AuthHelper')
 
 const facebookParams = {
 	clientID: process.env.FACEBOOK_CLIENT_ID,
@@ -57,7 +57,7 @@ module.exports = (passport) => {
 
 						if (isExistUserWithEmail) {
 							const jwtToken = jwt.sign(getUserData(isExistUserWithEmail), JWT_SECRET)
-							await updateCurrentToken(isExistUserWithEmail._id, jwtToken)
+							await updateCurrentTokenAndFacebookId(isExistUserWithEmail._id, profile.id, jwtToken)
 							return done(null, jwtToken)
 						}
 					}
