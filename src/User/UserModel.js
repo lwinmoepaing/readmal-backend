@@ -1,9 +1,12 @@
 const mongoose = require('mongoose')
 const mongoosePaginate = require('mongoose-paginate-v2')
-const { ROLES, RELATIONSHIP_STATE } = require('../../config')
+const { ROLES, RELATIONSHIP_STATE, THROPHY_RANKS } = require('../../config')
 const { PACKAGES, Package } = require('./UserHelper')
 const { Schema } = mongoose
 
+/**
+ * User bought package, for pricing
+ */
 const packageSchema = new Schema({
 	name: {
 		type: String,
@@ -12,6 +15,47 @@ const packageSchema = new Schema({
 	description: {
 		type: String,
 		default: '',
+	},
+	expiredAt: {
+		type: Date,
+		default: Date.now()
+	}
+})
+
+/**
+ * When User win some tournament, you can check
+ * after fetching AuthorData, that's why we should set like this Schema
+ */
+const userAchievementSchema = new Schema({
+	story_war_title: {
+		type: String,
+		required: true,
+	},
+	story_title: {
+		type: String,
+		required: true
+	},
+	position: {
+		type: String,
+		enum: THROPHY_RANKS,
+		index: true,
+		required: true,
+	},
+	description: {
+		type: String,
+		default: '',
+	},
+	story_war_id: {
+		type: Schema.Types.ObjectId,
+		ref: 'StoryWar',
+		required: true,
+		index: true
+	},
+	story_id: {
+		type: Schema.Types.ObjectId,
+		ref: 'Story',
+		required: true,
+		index: true
 	}
 })
 
@@ -86,10 +130,20 @@ const userSchema = new Schema({
 		default: false,
 	},
 
-	relationship_state: {
+	relationship_status: {
 		type: String,
 		enum: RELATIONSHIP_STATE,
 		default: 'Single',
+	},
+
+	// When is Author,
+	// Example when published stoies is morethan 20, we update Bishop
+	// Something Like that
+	rank: {
+		type: String,
+		enum: ['Citizen', 'Bishop', 'Knight', 'Legendary'],
+		default: 'Citizen',
+		index: true
 	},
 
 	// Story State
@@ -101,8 +155,7 @@ const userSchema = new Schema({
 		default: 0,
 	},
 
-	// Author's stories is store story objectid Reference to Story Table
-	stories: [{type: Schema.Types.ObjectId, ref: 'Story'}],
+
 
 	// Current Token
 	// Hold for one single protected device .
@@ -136,6 +189,11 @@ const userSchema = new Schema({
 		type: Boolean,
 		default: false,
 		index: false,
+	},
+
+	achievements: {
+		type: [userAchievementSchema],
+		default: [],
 	}
 
 }, {

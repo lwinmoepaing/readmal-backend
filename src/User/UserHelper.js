@@ -19,8 +19,9 @@ module.exports.PACKAGE_NAME_LIST = PACKAGE_NAME_LIST
 module.exports.PACKAGES = ['MONTHLY_SUBSCRIBE', 'MONTHLY_PREMIUM_SUBSCRIBE', 'MONTHLY_AUTHOR_SUBSCRIBE']
 
 module.exports.Package = class Package {
-	constructor(packageName) {
+	constructor(packageName, expiredAt = Date.now()) {
 		this.name = packageName
 		this.description = PACKAGE_NAME_LIST[packageName].description
+		this.expiredAt = expiredAt
 	}
 }
