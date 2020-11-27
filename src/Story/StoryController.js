@@ -3,7 +3,12 @@ const uuid = require('uuid/v4')
 
 const { MANAGE_ERROR_MESSAGE, IS_VALID_ID, DEEP_JSON_COPY } = require('../../lib/helper')
 const { errorResponse, successResponse } = require('../../lib/responseHandler')
-const { Story_Create_Validator, Story_Update_Validator, Story_Publish_Validator } = require('./StoryValidator')
+const {
+	Story_Create_Validator,
+	Story_Update_Validator,
+	Story_Publish_Validator ,
+	Story_Finish_Validator
+} = require('./StoryValidator')
 
 const Story = require('./StoryModel')
 const User = require('../User/UserModel')
@@ -253,6 +258,88 @@ module.exports.PUBLISH_STORY_BY_ID = async (req, res) => {
 		 * There is Some Logic Here
 		 * Example, when episode lenght is zero
 		 * Or when at least one episode are not published,
+		 * We had to Declined
+		 */
+
+		// If Okay
+		const body = value
+		const isAdmin = req.user.role === 'ADMIN'
+		const isAuthor = req.user.role === 'AUTHOR'
+		const requestUserRole= req.user.role
+
+		// Check Request User Roles
+		const allowedPermissionRoles = ['ADMIN', 'AUTHOR']
+		if (!allowedPermissionRoles.includes(requestUserRole)) {
+			throw new Error('Permission is not allowed for Request User Role.')
+		}
+
+		// If Request User is Author Case
+		if (isAuthor) {
+			console.log('\nRequest user is Author with Own Story\n>>>>')
+
+			// Check is own story or not
+			if (DEEP_JSON_COPY(existStory.author) !== DEEP_JSON_COPY(req.user._id)) {
+				throw new Error('This is not your story. So you are not allowed to update story.')
+			}
+
+			const storyParam = { ...body }
+			const updatedStory = await Story.findByIdAndUpdate(id, storyParam, {new: true})
+			res.status(200).json(successResponse(updatedStory, 'Successfully Story Updated'))
+			return
+		}
+
+		// If Request User is Admin Case
+		else if (isAdmin) {
+			console.log('\nAdmin Update story to Some author Story\n>>>>')
+
+			const storyParam = { ...body }
+			const updatedStory = await Story.findByIdAndUpdate(id, storyParam, {new: true})
+			res.status(200).json(successResponse(updatedStory, 'Successfully Story Updated'))
+		}
+
+	}
+	catch(e) {
+		res.status(400).json(errorResponse(e))
+	}
+
+}
+
+/**
+ * Finsih Story By Id
+ */
+module.exports.FINISH_STORY_BY_ID = async (req, res) => {
+	const { id = null } = req.params
+	const { error: idError } = IS_VALID_ID(id)
+
+	// Is Id Not Valid Error
+	if (idError) {
+		res.status(400).json(MANAGE_ERROR_MESSAGE(idError))
+		return
+	}
+
+	const { error, value } = Story_Finish_Validator(req)
+	if (error) {
+		res.status(400).json(MANAGE_ERROR_MESSAGE(error))
+		return
+	}
+
+	try {
+		// If Story Not Found
+		const existStory = await Story.findById(id)
+		if (!existStory) { throw new Error('Story Not Found') }
+
+		if (existStory.is_finished === true) {
+			throw new Error('Story is already finished.')
+		}
+
+		if (existStory.is_published !== true) {
+			throw new Error('Story is not even published.')
+		}
+
+		/**
+		 * There is Some Logic Here
+		 * Example, when episode lenght is zero
+		 * Or when at least one episode are not finished,
 		 * We had to Declined
 		 */
 

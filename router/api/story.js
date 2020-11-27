@@ -36,6 +36,13 @@ router.put('/:id', isAuthMiddleware, StoryController.UPDATE_STORY)
 router.put('/:id/publish', isAuthMiddleware, StoryController.PUBLISH_STORY_BY_ID)
 
 /**
+ * @doc : Finish Story
+ * @desc : Using Middlware JWT to Authenticate
+ * @route /api/v{Num}/story/{id}/finish
+ */
+router.put('/:id/finish', isAuthMiddleware, StoryController.FINISH_STORY_BY_ID)
+
+/**
  * @doc : Count Story
  * @desc : Using Middlware JWT to Authenticate
  * @route /api/v{Num}/story/count

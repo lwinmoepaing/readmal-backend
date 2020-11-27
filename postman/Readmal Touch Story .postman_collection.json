@@ -266,6 +266,41 @@
 					"response": []
 				},
 				{
+					"name": "Finish Story By Id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "is_finished",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/story/{{story_id}}/publish",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"story",
+								"{{story_id}}",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "All Story Count",
 					"request": {
 						"method": "GET",
@@ -322,12 +357,12 @@
 	],
 	"variable": [
 		{
-			"id": "02de5560-73d5-485d-9aea-925edaf5bca6",
+			"id": "5c3c10e7-cfba-4a53-bb3b-a607c44a2177",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "12f178e1-13c6-4491-a7d7-4f4c8606672d",
+			"id": "cd475d6f-c0f9-4d8c-b5b9-1466a434a5f9",
 			"key": "token",
 			"value": ""
 		}

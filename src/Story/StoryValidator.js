@@ -84,3 +84,18 @@ const Story_Publish_Validator = ({ body }) => {
 }
 
 module.exports.Story_Publish_Validator = Story_Publish_Validator
+
+/**
+ * Story Finish Validator
+ */
+
+const Story_Finish_Validator = ({ body }) => {
+
+	const schema = Joi.object().keys({
+		is_finished: Joi.boolean().required(),
+	})
+
+	return schema.validate({ ...body}, {abortEarly: false})
+}
+
+module.exports.Story_Finish_Validator = Story_Finish_Validator
