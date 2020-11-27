@@ -20,6 +20,7 @@ module.exports.CREATE_STORY = async (req, res) => {
 
 		// If Request User is Author Case
 		if (isAuthor) {
+			console.log('\nRequest user is Author with Own Story\n>>>>')
 			const storyParam = {...body}
 
 			// If There is Other Attributes , had to delete
@@ -39,13 +40,30 @@ module.exports.CREATE_STORY = async (req, res) => {
 		}
 
 		// If Request User is Admin Case
-		if (isAdmin) {
+		else if (isAdmin) {
 			const checkAuthor = await User.findById(body.author)
-			console.log(checkAuthor)
-			return
+
+			// Exist Author And Check His role must be Author
+			if (checkAuthor && checkAuthor.role === 'AUTHOR') {
+				console.log('\nRequest user is Admin with User Id\n>>>>')
+				const storyParam = {...body}
+				const story = new Story({
+					...storyParam,
+					author: checkAuthor._id
+				})
+
+				await story.save()
+				res.status(200).json(successResponse(story, 'Successfully Story Created'))
+				return
+			}
+
+			throw new Error('Author Id is Wrong')
 		}
 
-
+		// Else is Admin nor Author
+		else {
+			throw new Error('Permission is not allowed')
+		}
 	}
 	catch(e) {
 		res.status(400).json(errorResponse(e))
