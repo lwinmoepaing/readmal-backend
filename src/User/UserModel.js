@@ -68,13 +68,11 @@ const userAchievementSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'StoryWar',
 		required: true,
-		index: true
 	},
 	story_id: {
 		type: Schema.Types.ObjectId,
 		ref: 'Story',
 		required: true,
-		index: true
 	}
 })
 
@@ -229,7 +227,6 @@ const userSchema = new Schema({
 // For Seeding
 userSchema.static('findOneOrCreate', async function findOneOrCreate(condition, doc) {
 	const one = await this.findOne(condition)
-
 	return one || this.create(doc)
 })
 
