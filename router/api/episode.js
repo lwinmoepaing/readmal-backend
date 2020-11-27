@@ -13,4 +13,12 @@ const isAuthMiddleware = require('../../middleware/isAuthMiddleware')
  */
 router.post('/to-story/:id', isAuthMiddleware, EpisodeController.CREATE_EPISODE)
 
+/**
+ * @doc : Update Episode
+ * @desc : Using Middlware JWT to Authenticate
+ * @route /api/v{Num}/episode/to-story/{story_id}
+ */
+router.put('/:id', isAuthMiddleware, EpisodeController.UPDATE_EPISODE)
+
+
 module.exports = router
