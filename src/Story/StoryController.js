@@ -21,10 +21,19 @@ module.exports.CREATE_STORY = async (req, res) => {
 		const short_url = short.generate(uuid())
 		const isAdmin = req.user.role === 'ADMIN'
 		const isAuthor = req.user.role === 'AUTHOR'
+		const requestUserId = req.user._id
 
 		// If Request User is Author Case
 		if (isAuthor) {
 			console.log('\nRequest user is Author with Own Story\n>>>>')
+
+			// At First we need to check Story Addable Count is
+			const storyAddableCount = req.user.story_monthly_count
+
+			if (storyAddableCount <= 0) {
+				throw new Error('Cant More Create Stories For this Month.')
+			}
+
 			const storyParam = {...body, short_url}
 
 			// If There is Other Attributes , had to delete
@@ -33,12 +42,17 @@ module.exports.CREATE_STORY = async (req, res) => {
 			delete storyParam.is_including_premium
 			delete storyParam.author
 
+
 			const story = new Story({
 				...storyParam,
 				author: req.user._id
 			})
 
 			await story.save()
+
+			// Decrease Story Monthly Count
+			await User.findByIdAndUpdate(requestUserId, {story_monthly_count: storyAddableCount - 1})
+
 			res.status(200).json(successResponse(story, 'Successfully Story Created'))
 			return
 		}
@@ -50,6 +64,7 @@ module.exports.CREATE_STORY = async (req, res) => {
 			// Exist Author And Check His role must be Author
 			if (checkAuthor && checkAuthor.role === 'AUTHOR') {
 				console.log('\nRequest user is Admin with User Id\n>>>>')
+
 				const storyParam = {...body, short_url}
 				const story = new Story({
 					...storyParam,
@@ -73,4 +88,9 @@ module.exports.CREATE_STORY = async (req, res) => {
 		res.status(400).json(errorResponse(e))
 	}
 
+}
+
+module.exports.STORY_COUNT = async (req, res) => {
+	const count = await Story.countDocuments()
+	res.status(200).json(successResponse(count, 'Count Stories'))
 }

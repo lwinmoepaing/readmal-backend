@@ -67,7 +67,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"example@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"email\": \"author@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -201,12 +201,12 @@
 	],
 	"variable": [
 		{
-			"id": "db1725f5-db93-48fe-8ab3-66acffe23895",
+			"id": "27ee80fe-e608-4c41-b6b3-7e99d0e16859",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "b175509a-93a5-4371-b285-bf44c09f56ea",
+			"id": "153d290a-6e67-45bb-9851-d85b0cedd4c2",
 			"key": "token",
 			"value": ""
 		}
