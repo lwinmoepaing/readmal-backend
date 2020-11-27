@@ -52,6 +52,15 @@ module.exports = (passport) => {
 					const isGetEmailFromFbAccount = profile.emails.length > 0
 					const emailFromFb = isGetEmailFromFbAccount ?  profile.emails[0].value : null
 
+					// Checking If Already Exist User with Facebook Id
+					const isExistUserWithFbId = await User.findOne({ facebook_social_id: profile.id})
+
+					if (isExistUserWithFbId) {
+						const jwtToken = jwt.sign(getUserData(isExistUserWithFbId), JWT_SECRET)
+						await updateCurrentToken(isExistUserWithFbId._id, jwtToken)
+						return done(null, jwtToken)
+					}
+
 					if (isGetEmailFromFbAccount) {
 						const isExistUserWithEmail = await User.findOne({ email: emailFromFb })
 						// const isExistUserWithFbId = await User.findOne({ facebook_social_id: profile.id})
@@ -61,15 +70,6 @@ module.exports = (passport) => {
 							await updateCurrentTokenAndFacebookId(isExistUserWithEmail._id, profile.id, jwtToken)
 							return done(null, jwtToken)
 						}
-					}
-
-					// Checking If Already Exist User with Facebook Id
-					const isExistUserWithFbId = await User.findOne({ facebook_social_id: profile.id})
-
-					if (isExistUserWithFbId) {
-						const jwtToken = jwt.sign(getUserData(isExistUserWithFbId), JWT_SECRET)
-						await updateCurrentToken(isExistUserWithFbId._id, jwtToken)
-						return done(null, jwtToken)
 					}
 
 					const salt = await bcrypt.genSalt(10)
