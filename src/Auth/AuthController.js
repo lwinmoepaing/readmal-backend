@@ -85,8 +85,9 @@ module.exports.LOGIN_USER = async (req, res) => {
 			// Set JWT Token
 			const token = jwt.sign(data, JWT_SECRET)
 
+
 			try {
-				await updateCurrentToken(_id, token)
+				user = await updateCurrentToken(_id, token)
 			}
 			catch(e) {
 				console.log(e)
