@@ -170,7 +170,8 @@ const userSchema = new Schema({
 	// note: may be null value, when this user is free user.
 	package: {
 		type: packageSchema,
-		default: new Package('MONTHLY_SUBSCRIBE')
+		// default: new Package('MONTHLY_SUBSCRIBE')
+		default: null
 	},
 
 	expiredAt: {
