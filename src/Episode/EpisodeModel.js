@@ -13,7 +13,6 @@ const characterSchema = new Schema({
 	id: {
 		type: String,
 		required: true,
-		unique: true,
 	},
 	name: {
 		type: String,
@@ -74,11 +73,18 @@ const episodeSchema = new Schema({
 	image: {
 		type: String,
 		required: true,
-		defualt: 'episode.jpg'
+		default: 'episode.jpg'
+	},
+
+	background_context_image: {
+		type: String,
+		required: true,
+		default: 'background_context.jpg'
 	},
 
 	title: {
 		type: String,
+		required: true,
 		default: '',
 	},
 
@@ -91,28 +97,40 @@ const episodeSchema = new Schema({
 	// Description is Show Description of Stories
 	is_show_description: {
 		type: Boolean,
+		required: true,
 		default: true,
 	},
 
 	episode_number: {
 		type: Number,
+		required: true,
 		default: 1,
 	},
 
 	addable_image_count: {
 		type: Number,
+		required: true,
 		default: 3,
 	},
 
 	addable_message_count: {
 		type: Number,
+		required: true,
 		default: 110
 	},
 
 	// When Publish is Editable set to false
 	is_editable: {
 		type: Boolean,
+		required: true,
 		default: true,
+	},
+
+	// When Publish is Editable set to false
+	is_published: {
+		type: Boolean,
+		required: true,
+		default: false,
 	},
 
 	// Is Premium , Premium Episode
@@ -120,6 +138,7 @@ const episodeSchema = new Schema({
 	// all next episodes are lock with premium
 	is_premium: {
 		type: Boolean,
+		required: true,
 		default: false,
 	},
 

@@ -38,7 +38,8 @@ const PAYMENT_TYPES = ['KBZ_PAY', 'KBZ_ACCOUNT', 'MAB_ACCOUNT', 'AYA_ACCOUNT', '
  * Images Path
  */
 const USER_IMAGE_PATH = 'profile'
-const STORY_IMAGE_PATH = 'story'
+const STORY_IMAGE_PATH = 'stories'
+const EPISODE_IMAGE_PATH = 'episodes'
 
 /**
  * Custom Paginate Labels with Mongoose-Paginate-V2
@@ -68,5 +69,6 @@ module.exports = {
 	BOOK_CATEGORIES,
 	USER_IMAGE_PATH,
 	STORY_IMAGE_PATH,
+	EPISODE_IMAGE_PATH,
 	PAYMENT_TYPES
 }
