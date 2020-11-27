@@ -147,8 +147,7 @@ module.exports.UPDATE_STORY = async (req, res) => {
 			console.log('\nRequest user is Author with Own Story\n>>>>')
 
 			// Check is own story or not
-
-			if (DEEP_JSON_COPY(Story.author) !== DEEP_JSON_COPY(req.user_id)) {
+			if (DEEP_JSON_COPY(existStory.author) !== DEEP_JSON_COPY(req.user._id)) {
 				throw new Error('This is not your story. So you are not allowed to update story.')
 			}
 
@@ -157,7 +156,7 @@ module.exports.UPDATE_STORY = async (req, res) => {
 			// to be safe Process
 			delete storyParam.addable_episode_count
 			const updatedStory = await Story.findByIdAndUpdate(id, storyParam, {new: true})
-			res.status(200).json(successResponse(updatedStory.exec(), 'Successfully Story Updated'))
+			res.status(200).json(successResponse(updatedStory, 'Successfully Story Updated'))
 			return
 		}
 
