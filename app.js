@@ -73,7 +73,8 @@ app.use(express.static('./public'))
 app.get('/', (req, res) => {
 	res.status(201).json({
 		message: 'Api Testing',
-		author: 'Lwin Moe Paing'
+		author: 'Lwin Moe Paing',
+		routes: routerEndPoints(app),
 	})
 })
 
