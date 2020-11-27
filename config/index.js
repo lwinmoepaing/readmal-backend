@@ -30,6 +30,11 @@ const THROPHY_RANKS = ['Champion', 'First_RunnerUp', 'Second_RunnerUp', 'People_
 const BOOK_CATEGORIES = ['Horror', 'Comedy', 'Drama', 'Detective']
 
 /**
+ * Payment Types
+ */
+const PAYMENT_TYPES = ['KBZ_PAY', 'KBZ_ACCOUNT', 'MAB_ACCOUNT', 'AYA_ACCOUNT', 'WAVE_MONEY']
+
+/**
  * Images Path
  */
 const USER_IMAGE_PATH = 'profile'
@@ -62,5 +67,6 @@ module.exports = {
 	THROPHY_RANKS,
 	BOOK_CATEGORIES,
 	USER_IMAGE_PATH,
-	STORY_IMAGE_PATH
+	STORY_IMAGE_PATH,
+	PAYMENT_TYPES
 }

@@ -1,11 +1,23 @@
 const mongoose = require('mongoose')
 const mongoosePaginate = require('mongoose-paginate-v2')
-const { ROLES, RELATIONSHIP_STATE, THROPHY_RANKS } = require('../../config')
+const { ROLES, RELATIONSHIP_STATE, THROPHY_RANKS, PAYMENT_TYPES } = require('../../config')
 const {
 	PACKAGES,
 	//  Package
 } = require('./UserHelper')
 const { Schema } = mongoose
+
+
+const paymentInfoSchema = new Schema({
+	type: {
+		type: String,
+		enum: PAYMENT_TYPES,
+	},
+	context: {
+		type: String,
+		default: '',
+	},
+})
 
 /**
  * User bought package, for pricing
@@ -200,6 +212,13 @@ const userSchema = new Schema({
 	achievements: {
 		type: [userAchievementSchema],
 		default: [],
+	},
+
+	// When he wanna make say transaction
+	// We must know his payment info
+	paymentInfo: {
+		type: [paymentInfoSchema],
+		default: []
 	}
 
 }, {
