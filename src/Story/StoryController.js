@@ -7,6 +7,7 @@ const { Story_Create_Validator, Story_Update_Validator } = require('./StoryValid
 
 const Story = require('./StoryModel')
 const User = require('../User/UserModel')
+const { USER_IMAGE_PATH, STORY_IMAGE_PATH } = require('../../config')
 
 /**
  * Create Story
@@ -177,4 +178,46 @@ module.exports.UPDATE_STORY = async (req, res) => {
 		res.status(400).json(errorResponse(e))
 	}
 
+}
+
+/**
+ * Get Story By Id
+ *
+ */
+module.exports.GET_STORY_BY_ID = async (req, res) => {
+	const { id = null } = req.params
+	const { error: idError } = IS_VALID_ID(id)
+	// Is Id Not Valid Error
+	if (idError) {
+		res.status(400).json(MANAGE_ERROR_MESSAGE(idError))
+		return
+	}
+
+	try {
+		const excludesValue = ['__v', 'createdAt', 'deletedAt', 'updatedAt', 'viwers', 'addable_episode_count']
+
+		// If Story Not Found
+		const existStory = await Story
+			.findById(id)
+			.select(excludesValue.map(txt => `-${txt}`).join(' '))
+
+		if (!existStory) { throw new Error('Story Not Found') }
+
+		const showUserData = 'name email image role'
+		const data = await existStory
+			.populate('author', showUserData)
+			.populate('createdBy', showUserData)
+			.execPopulate()
+
+		data.image = `${process.env.BASE_URL}/${STORY_IMAGE_PATH}/${data.image}`
+		data.createdBy.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${data.createdBy.image}`
+		data.author.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${data.author.image}`
+
+
+		res.status(200).json(successResponse(data, 'Successfully fetching story.'))
+
+	}
+	catch(e) {
+		res.status(400).json(errorResponse(e))
+	}
 }

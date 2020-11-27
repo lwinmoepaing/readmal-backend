@@ -4,13 +4,11 @@ const jwt = require('jsonwebtoken')
 // Model Import
 const User = require('../User/UserModel')
 // Self Import
-const { JWT_SECRET } = require('../../config')
+const { JWT_SECRET, USER_IMAGE_PATH } = require('../../config')
 const { MANAGE_ERROR_MESSAGE } = require('../../lib/helper')
 const { errorResponse, successResponse } = require('../../lib/responseHandler')
 const { Auth_Register_Validator, Auth_Login_Validator } = require('./AuthValidator')
 const { updateCurrentToken } = require('./AuthHelper')
-
-const userImagePath = 'profile'
 
 /**
  * @desc: CREATE USER
@@ -112,7 +110,7 @@ module.exports.GET_PROFILE_DATA = async (req, res) => {
 			throw new Error ('User Not Found ')
 		}
 
-		user.image = `${process.env.BASE_URL}/${userImagePath}/${user.image}`
+		user.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${user.image}`
 
 		res.status(200).json(
 			successResponse(user,'Successfully Fetching User Profile')

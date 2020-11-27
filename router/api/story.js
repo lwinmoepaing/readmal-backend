@@ -15,6 +15,13 @@ const isAuthMiddleware = require('../../middleware/isAuthMiddleware')
 router.post('/', isAuthMiddleware, StoryController.CREATE_STORY)
 
 /**
+ * @doc : Get Story By Id
+ * @desc : Using Middlware JWT to Authenticate
+ * @route /api/v{Num}/story/count
+ */
+router.get('/:id', StoryController.GET_STORY_BY_ID)
+
+/**
  * @doc : Update Story
  * @desc : Using Middlware JWT to Authenticate
  * @route /api/v{Num}/story/count

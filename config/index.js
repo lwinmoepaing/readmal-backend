@@ -30,6 +30,12 @@ const THROPHY_RANKS = ['Champion', 'First_RunnerUp', 'Second_RunnerUp', 'People_
 const BOOK_CATEGORIES = ['Horror', 'Comedy', 'Drama', 'Detective']
 
 /**
+ * Images Path
+ */
+const USER_IMAGE_PATH = 'profile'
+const STORY_IMAGE_PATH = 'story'
+
+/**
  * Custom Paginate Labels with Mongoose-Paginate-V2
  * @doc : https://github.com/aravindnc/mongoose-paginate-v2#with-custom-return-labels
  */
@@ -54,5 +60,7 @@ module.exports = {
 	PAGINATE_LABELS,
 	PAGINATE_LIMIT: 8,
 	THROPHY_RANKS,
-	BOOK_CATEGORIES
+	BOOK_CATEGORIES,
+	USER_IMAGE_PATH,
+	STORY_IMAGE_PATH
 }

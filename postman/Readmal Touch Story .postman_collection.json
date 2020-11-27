@@ -247,6 +247,24 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Story By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/story/{{story_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"story",
+								"{{story_id}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -269,12 +287,12 @@
 	],
 	"variable": [
 		{
-			"id": "489691b6-8b3d-4508-bb33-7b170f180f83",
+			"id": "909f63f3-6e12-4621-aad9-99106acb785e",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "70ed110d-d24c-4444-b8cc-0e3d5e148304",
+			"id": "6c63e707-93a2-4602-964e-81096836f3da",
 			"key": "token",
 			"value": ""
 		}
