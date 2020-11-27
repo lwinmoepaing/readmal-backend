@@ -70,3 +70,17 @@ const Story_Update_Validator = ({ body, user }) => {
 
 module.exports.Story_Update_Validator = Story_Update_Validator
 
+/**
+ * Story Published Validator
+ */
+
+const Story_Publish_Validator = ({ body }) => {
+
+	const schema = Joi.object().keys({
+		is_published: Joi.boolean().required(),
+	})
+
+	return schema.validate({ ...body}, {abortEarly: false})
+}
+
+module.exports.Story_Publish_Validator = Story_Publish_Validator

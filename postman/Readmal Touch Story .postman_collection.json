@@ -181,7 +181,7 @@
 					"response": []
 				},
 				{
-					"name": "Update Story",
+					"name": "Update Story By Id",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -231,7 +231,42 @@
 					"response": []
 				},
 				{
-					"name": "Story Count",
+					"name": "Publish Story By Id ",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "is_published",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/story/{{story_id}}/publish",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"story",
+								"{{story_id}}",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Story Count",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -287,12 +322,12 @@
 	],
 	"variable": [
 		{
-			"id": "909f63f3-6e12-4621-aad9-99106acb785e",
+			"id": "02de5560-73d5-485d-9aea-925edaf5bca6",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "6c63e707-93a2-4602-964e-81096836f3da",
+			"id": "12f178e1-13c6-4491-a7d7-4f4c8606672d",
 			"key": "token",
 			"value": ""
 		}
