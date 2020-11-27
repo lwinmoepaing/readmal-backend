@@ -5,7 +5,7 @@ Joi.objectId = require('joi-objectid')(Joi)
 // const phRegex = new RegExp('(?=^(09))([0-9]{6,11})$|(?=^(01))([0-9]{6,8})$')
 
 /**
- * User Update Validator
+ * Story Create Validator
  */
 const Story_Create_Validator = ({ body, user }) => {
 
@@ -40,3 +40,34 @@ const Story_Create_Validator = ({ body, user }) => {
 }
 
 module.exports.Story_Create_Validator = Story_Create_Validator
+
+/**
+ * Story Update Validator
+ */
+const Story_Update_Validator = ({ body, user }) => {
+
+	const userRole = user.role
+	const isAdmin =  userRole === 'ADMIN'
+	let keys = {
+		// If get or not, we don't care
+		// if not default is 'story.jpg' so dont worry
+		image: Joi.string().trim(true),
+
+		// Title must be required
+		title: Joi.string().trim().min(3),
+
+		// Description: If at least string "" must be included
+		description: Joi.string().trim(true).optional(),
+	}
+
+	if (body['addable_episode_count'] && isAdmin) {
+		keys['addable_episode_count'] = Joi.number()
+	}
+
+	const schema = Joi.object().keys(keys).min(1)
+
+	return schema.validate({ ...body}, {abortEarly: false})
+}
+
+module.exports.Story_Update_Validator = Story_Update_Validator
+
