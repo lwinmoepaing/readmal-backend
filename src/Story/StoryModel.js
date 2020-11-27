@@ -157,6 +157,14 @@ const storySchema = new Schema({
 	timestamps: true,
 })
 
+// Find One Or Creata is Custom
+// For Seeding
+storySchema.static('findOneOrCreate', async function findOneOrCreate(condition, doc) {
+	const one = await this.findOne(condition)
+
+	return one || this.create(doc)
+})
+
 
 // Plugin Paginate
 storySchema.plugin(mongoosePaginate)

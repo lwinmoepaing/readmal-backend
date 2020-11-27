@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 const mongoosePaginate = require('mongoose-paginate-v2')
 const { ROLES, RELATIONSHIP_STATE, THROPHY_RANKS } = require('../../config')
-const { PACKAGES, Package } = require('./UserHelper')
+const {
+	PACKAGES,
+	//  Package
+} = require('./UserHelper')
 const { Schema } = mongoose
 
 /**
