@@ -12,6 +12,14 @@ module.exports = async () => {
 			_id: ObjectId('5fbff7edc2f87522b43f3785'),
 			name: 'Lwin Moe Paing',
 			email: 'lwinmoepaing007@gmail.com',
+			facebook_social_id: '2006270212842582',
+			password,
+			role: 'ADMIN'
+		},
+		{
+			_id: ObjectId('5fc0b899a953c43ab047deb5'),
+			name: 'Mg Admin',
+			email: 'admin@gmail.com',
 			password,
 			role: 'ADMIN'
 		},
