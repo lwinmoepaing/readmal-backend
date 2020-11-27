@@ -1,4 +1,4 @@
-var { ObjectId } = require('mongoose').mongo
+const { ObjectId } = require('mongoose').mongo
 const User = require('../src/User/UserModel')
 const bcrypt = require('bcrypt')
 
