@@ -1,3 +1,6 @@
+const short = require('short-uuid')
+const uuid = require('uuid/v4')
+
 const { MANAGE_ERROR_MESSAGE } = require('../../lib/helper')
 const { errorResponse, successResponse } = require('../../lib/responseHandler')
 const { Story_Create_Validator } = require('./StoryValidator')
@@ -15,13 +18,14 @@ module.exports.CREATE_STORY = async (req, res) => {
 
 	try {
 		const { body } = req
+		const short_url = short.generate(uuid())
 		const isAdmin = req.user.role === 'ADMIN'
 		const isAuthor = req.user.role === 'AUTHOR'
 
 		// If Request User is Author Case
 		if (isAuthor) {
 			console.log('\nRequest user is Author with Own Story\n>>>>')
-			const storyParam = {...body}
+			const storyParam = {...body, short_url}
 
 			// If There is Other Attributes , had to delete
 			// to be safe Process
@@ -46,7 +50,7 @@ module.exports.CREATE_STORY = async (req, res) => {
 			// Exist Author And Check His role must be Author
 			if (checkAuthor && checkAuthor.role === 'AUTHOR') {
 				console.log('\nRequest user is Admin with User Id\n>>>>')
-				const storyParam = {...body}
+				const storyParam = {...body, short_url}
 				const story = new Story({
 					...storyParam,
 					author: checkAuthor._id

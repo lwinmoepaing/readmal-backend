@@ -54,6 +54,7 @@ module.exports = (passport) => {
 
 					if (isGetEmailFromFbAccount) {
 						const isExistUserWithEmail = await User.findOne({ email: emailFromFb })
+						// const isExistUserWithFbId = await User.findOne({ facebook_social_id: profile.id})
 
 						if (isExistUserWithEmail) {
 							const jwtToken = jwt.sign(getUserData(isExistUserWithEmail), JWT_SECRET)

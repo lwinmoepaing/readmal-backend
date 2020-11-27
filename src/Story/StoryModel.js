@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 const mongoosePaginate = require('mongoose-paginate-v2')
 const { THROPHY_RANKS, BOOK_CATEGORIES } = require('../../config')
 const { Schema } = mongoose
-const shortUUID = require('short-uuid')
+const short = require('short-uuid')
+const uuid = require('uuid/v4')
 
 /**
  * Create Story Schema
@@ -17,7 +18,7 @@ const storySchema = new Schema({
 		required: true,
 		index: true,
 		unique: true,
-		default: shortUUID.generate()
+		default: short.generate(uuid())
 	},
 
 	// Image jus string, path can be defined by controller
@@ -111,7 +112,7 @@ const storySchema = new Schema({
 
 	story_war_position: {
 		type: String,
-		enum: THROPHY_RANKS,
+		enum: [...THROPHY_RANKS, null],
 		default: null,
 		index: true,
 	},
