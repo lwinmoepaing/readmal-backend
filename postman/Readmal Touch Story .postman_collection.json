@@ -132,6 +132,11 @@
 									"type": "text"
 								},
 								{
+									"key": "description",
+									"value": "Some Description",
+									"type": "text"
+								},
+								{
 									"key": "category",
 									"value": "Horror",
 									"type": "text"
@@ -149,6 +154,11 @@
 								{
 									"key": "is_including_premium",
 									"value": "false",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "{{author_id}}",
 									"type": "text"
 								}
 							],
@@ -191,12 +201,12 @@
 	],
 	"variable": [
 		{
-			"id": "17aace27-d0ae-455c-91a3-27238af31f94",
+			"id": "db1725f5-db93-48fe-8ab3-66acffe23895",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "355246eb-0459-404a-ac44-1e29b17bf6ba",
+			"id": "b175509a-93a5-4371-b285-bf44c09f56ea",
 			"key": "token",
 			"value": ""
 		}
