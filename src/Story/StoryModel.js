@@ -69,11 +69,11 @@ const storySchema = new Schema({
 		index: true,
 	},
 
-	// If User is Premium_Author , we add extra +2 count 5
+	// If User is Premium_Author , we add extra +2 total count 7
 	addable_episode_count: {
 		type: Number,
 		requird: true,
-		default: 3,
+		default: 5,
 		index: true,
 	},
 
@@ -84,6 +84,19 @@ const storySchema = new Schema({
 		required: true,
 		index: true
 	},
+
+	// Created By It's may be Author Or Admin
+	createdBy: {
+		type: Schema.Types.ObjectId,
+		ref: 'User',
+		required: true,
+	},
+
+	// Viewrs Mean when user is reading at least one episode 80%
+	viwers: [{
+		type: Schema.Types.ObjectId,
+		ref: 'User',
+	}],
 
 	// When story is reported we should hold reported story
 	is_reported: {
