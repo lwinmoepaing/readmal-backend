@@ -45,7 +45,6 @@ module.exports.Story_Create_Validator = Story_Create_Validator
  * Story Update Validator
  */
 const Story_Update_Validator = ({ body, user }) => {
-
 	const userRole = user.role
 	const isAdmin =  userRole === 'ADMIN'
 	let keys = {

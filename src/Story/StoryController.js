@@ -127,18 +127,18 @@ module.exports.UPDATE_STORY = async (req, res) => {
 
 	try {
 		// If Story Not Found
-		const Story = await Story.findById(id)
-		if (!Story) { throw new Error('Story Not Found') }
+		const existStory = await Story.findById(id)
+		if (!existStory) { throw new Error('Story Not Found') }
 
 		// If Okay
 		const body = value
 		const isAdmin = req.user.role === 'ADMIN'
 		const isAuthor = req.user.role === 'AUTHOR'
-		const requestUserId = req.user._id
+		const requestUserRole= req.user.role
 
 		// Check Request User Roles
 		const allowedPermissionRoles = ['ADMIN', 'AUTHOR']
-		if (!allowedPermissionRoles.includes(requestUserId)) {
+		if (!allowedPermissionRoles.includes(requestUserRole)) {
 			throw new Error('Permission is not allowed for Request User Role.')
 		}
 
@@ -156,15 +156,17 @@ module.exports.UPDATE_STORY = async (req, res) => {
 			// If There is Other Attributes , had to delete
 			// to be safe Process
 			delete storyParam.addable_episode_count
-			const updatedStory = await Story.findByIdAndUpdate(id, storyParam)
-			res.status(200).json(successResponse(updatedStory, 'Successfully Story Updated'))
+			const updatedStory = await Story.findByIdAndUpdate(id, storyParam, {new: true})
+			res.status(200).json(successResponse(updatedStory.exec(), 'Successfully Story Updated'))
 			return
 		}
 
 		// If Request User is Admin Case
 		else if (isAdmin) {
+			console.log('\nAdmin Update story to Some author Story\n>>>>')
+
 			const storyParam = { ...body }
-			const updatedStory = await Story.findByIdAndUpdate(id, storyParam)
+			const updatedStory = await Story.findByIdAndUpdate(id, storyParam, {new: true})
 			res.status(200).json(successResponse(updatedStory, 'Successfully Story Updated'))
 		}
 		// Else is Admin nor Author

@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "User",
+			"name": "Auth",
 			"item": [
 				{
 					"name": "Fetching User Profile (Info)",
@@ -179,6 +179,74 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Update Story",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "New: Suck!!",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"value": "story.jpg",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "New: Description!!",
+									"type": "text"
+								},
+								{
+									"key": "addable_episode_count",
+									"value": "10",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/story/{{story_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"story",
+								"{{story_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Story Count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/story/count",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"story",
+								"count"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -201,12 +269,12 @@
 	],
 	"variable": [
 		{
-			"id": "27ee80fe-e608-4c41-b6b3-7e99d0e16859",
+			"id": "489691b6-8b3d-4508-bb33-7b170f180f83",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "153d290a-6e67-45bb-9851-d85b0cedd4c2",
+			"id": "70ed110d-d24c-4444-b8cc-0e3d5e148304",
 			"key": "token",
 			"value": ""
 		}

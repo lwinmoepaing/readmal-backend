@@ -19,7 +19,7 @@ router.post('/', isAuthMiddleware, StoryController.CREATE_STORY)
  * @desc : Using Middlware JWT to Authenticate
  * @route /api/v{Num}/story/count
  */
-router.put('/:id', StoryController.UPDATE_STORY)
+router.put('/:id', isAuthMiddleware, StoryController.UPDATE_STORY)
 
 /**
  * @doc : Count Story
