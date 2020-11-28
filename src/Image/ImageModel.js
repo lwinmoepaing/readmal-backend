@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const mongoosePaginate = require('mongoose-paginate-v2')
+const { ALL_IMAGE_PATH } = require('../../config')
 const { Schema } = mongoose
 
 /**
@@ -7,19 +8,26 @@ const { Schema } = mongoose
  * @doc : User Scalable Schema
  */
 const imageSchema = new Schema({
-	url: {
+	path: {
+		type: String,
+		enum: ALL_IMAGE_PATH,
+		required: true,
+		default: 'profile'
+	},
+	file_name: {
 		type: String,
 		unique: true,
 		required: true,
 	},
-	user: {
+	createdBy: {
 		type: Schema.Types.ObjectId,
 		ref: 'User',
 		index: true,
 		required: true,
 	},
-	note: {
-		type: String
+	text: {
+		type: String,
+		index: true
 	},
 	deletedAt: {
 		type: Date,
