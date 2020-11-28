@@ -1,7 +1,7 @@
 const Image = require('./ImageModel')
 const User = require('../User/UserModel')
 
-const { errorResponse } = require('../../lib/responseHandler')
+const { errorResponse, successResponse } = require('../../lib/responseHandler')
 const { PAGINATE_LABELS } = require('../../config')
 
 /**
@@ -11,13 +11,13 @@ module.exports.GET_ALL_IMAGES = async (req, res) => {
 	const { page = 1 } = req.query
 	const limit = 10
 	const options = {
-		select: '_id note url',
+		select: '_id image createdBy',
 		sort: { createdAt: -1 },
 		page,
 		limit,
 		customLabels: PAGINATE_LABELS,
 		populate: {
-			path: 'user', select: 'name role'
+			path: 'createdBy', select: 'name role image'
 		}
 	}
 
@@ -40,28 +40,24 @@ module.exports.CREATE_IMAGE = async (req, res) => {
 			throw new Error('Invalid File')
 		}
 
-		const imageFilePath = `/images/${req.file.filename}`
+		const imageFilePath = `${req.file.filename}`
+
 		const image = new Image({
-			url: imageFilePath,
-			user: `${req.user._id}`,
-			note: req.body.note || ''
+			image: imageFilePath,
+			createdBy: `${req.user._id}`,
+			text: req.query.text || '',
+			path: req.query.path || 'profile',
 		})
 
 		await image.save()
 
-		// if(req.query.projectId) {
-		// 	await Project.findByIdAndUpdate(req.query.projectId, {
-		// 		headImg: imageFilePath
-		// 	})
-		// }
-
-		if(req.query.userId) {
+		if (req.query.userId) {
 			await User.findByIdAndUpdate(req.query.userId, {
 				image: imageFilePath
 			})
 		}
 
-		res.json({ image })
+		res.json(successResponse(image, 'Succesfully Uploaded'))
 	} catch (e) {
 		res.status(404).json(errorResponse(e))
 	}

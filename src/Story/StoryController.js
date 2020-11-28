@@ -27,8 +27,6 @@ module.exports.CREATE_STORY = async (req, res) => {
 		return
 	}
 
-
-
 	try {
 		const body = value
 		const short_url = short.generate(uuid())

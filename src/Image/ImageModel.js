@@ -14,7 +14,7 @@ const imageSchema = new Schema({
 		required: true,
 		default: 'profile'
 	},
-	file_name: {
+	image: {
 		type: String,
 		unique: true,
 		required: true,

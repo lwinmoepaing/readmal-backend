@@ -619,6 +619,55 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "Image",
+			"item": [
+				{
+					"name": "Uploat Image with path file",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/image?path=stories&text=Fuck yeah",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"image"
+							],
+							"query": [
+								{
+									"key": "path",
+									"value": "stories"
+								},
+								{
+									"key": "text",
+									"value": "Fuck yeah"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Testing Init Route",
 			"request": {
 				"method": "GET",
@@ -636,12 +685,12 @@
 	],
 	"variable": [
 		{
-			"id": "ac241c60-e5fe-4413-98ce-a73fd19ece04",
+			"id": "e8e36dae-97c0-482d-b79d-d7afe353014c",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "15e16702-af72-4029-b906-96b8a2412c40",
+			"id": "6d7968bb-c29d-4612-8df9-b865192ea97e",
 			"key": "token",
 			"value": ""
 		}
