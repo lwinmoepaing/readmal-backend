@@ -47,7 +47,6 @@ const contextSchema = new Schema({
 	context_url: {
 		type: String,
 		default: '',
-		required: true
 	},
 	is_theme_change: {
 		type: Boolean,
@@ -56,7 +55,6 @@ const contextSchema = new Schema({
 	is_theme_change_url: {
 		type: String,
 		default: '',
-		required: true
 	},
 	character: {
 		type: characterSchema,
