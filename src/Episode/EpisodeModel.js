@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const mongoosePaginate = require('mongoose-paginate-v2')
 const { Schema } = mongoose
+
+const { Character } = require('./EpisodeHelper')
 // const short = require('short-uuid')
 // const uuid = require('uuid/v4')
 
@@ -58,6 +60,7 @@ const contextSchema = new Schema({
 	},
 	character: {
 		type: characterSchema,
+		default: new Character(),
 		required: true
 	}
 }, { _id: false })

@@ -23,6 +23,14 @@ router.post('/to-story/:id', isAuthMiddleware, EpisodeController.CREATE_EPISODE)
 router.put('/:id', isAuthMiddleware, EpisodeController.UPDATE_EPISODE)
 
 /**
+ * @doc : Update Episode
+ * @desc : Using Middlware JWT to Authenticate
+ * @route /api/v{Num}/episode/{id}/update-context
+ * @method PUT
+ */
+router.put('/:id/update-context', isAuthMiddleware, EpisodeController.UPDATE_CONTEXT)
+
+/**
  * @doc : GET Episode
  * @desc : Using Middlware JWT to Authenticate
  * @route /api/v{Num}/episode/{id}
