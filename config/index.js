@@ -41,6 +41,8 @@ const USER_IMAGE_PATH = 'profile'
 const STORY_IMAGE_PATH = 'stories'
 const EPISODE_IMAGE_PATH = 'episodes'
 
+const ALL_IMAGE_PATH = [ USER_IMAGE_PATH, STORY_IMAGE_PATH, EPISODE_IMAGE_PATH ]
+
 /**
  * Custom Paginate Labels with Mongoose-Paginate-V2
  * @doc : https://github.com/aravindnc/mongoose-paginate-v2#with-custom-return-labels
@@ -70,5 +72,6 @@ module.exports = {
 	USER_IMAGE_PATH,
 	STORY_IMAGE_PATH,
 	EPISODE_IMAGE_PATH,
-	PAYMENT_TYPES
+	PAYMENT_TYPES,
+	ALL_IMAGE_PATH
 }

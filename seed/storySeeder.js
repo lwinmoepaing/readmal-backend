@@ -18,9 +18,10 @@ module.exports = async () => {
 			category: 'Horror',
 			title: 'First Story !!',
 			image: 'story.jpg',
+			addable_episode_count: 2,
 			author: author_id, // Mg Author (author@gmail.com)
 			createdBy: ObjectId('5fbff7edc2f87522b43f3785'), // Admin (lwinmoepaong007@gmail.com)
-			episodes: [ObjectId('5fc131e005ab424dcc75479d'), new_episode_id], // First Episode
+			episodes: [ObjectId('5fc131e005ab424dcc75479d'), new_episode_id, '5fc23cf394566d45f42820ff'], // First Episode
 		}
 	]
 
@@ -53,7 +54,21 @@ module.exports = async () => {
 			author: author_id,
 			story: story_id,
 			episode_number: 2,
-			context: Array.from({ length: 30 },() => ({
+			context: Array.from({ length: 120 },() => ({
+				type: 'MESSAGE',
+				message: faker.lorem.words(8),
+				context_position: ['LEFT', 'RIGHT'][getRandomInt(0, 1)],
+				is_theme_change: false,
+				character: characters[getRandomInt(0, 2)]
+			}))
+		},
+		{
+			_id: '5fc23cf394566d45f42820ff',
+			title: 'Seed Episode 3',
+			author: author_id,
+			story: story_id,
+			episode_number: 2,
+			context: Array.from({ length: 80 },() => ({
 				type: 'MESSAGE',
 				message: faker.lorem.words(8),
 				context_position: ['LEFT', 'RIGHT'][getRandomInt(0, 1)],
