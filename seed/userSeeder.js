@@ -13,6 +13,7 @@ module.exports = async () => {
 			name: 'Lwin Moe Paing',
 			email: 'lwinmoepaing007@gmail.com',
 			facebook_social_id: '2006270212842582',
+			current_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmJmZjdlZGMyZjg3NTIyYjQzZjM3ODUiLCJuYW1lIjoiTHdpbiBNb2UgUGFpbmciLCJlbWFpbCI6Imx3aW5tb2VwYWluZzAwN0BnbWFpbC5jb20iLCJpYXQiOjE2MDY1NjkwNjd9.juBpNyev5br671oeiWE9tdfjaZfpzSPWeYBjlr3uGFE',
 			password,
 			role: 'ADMIN'
 		},

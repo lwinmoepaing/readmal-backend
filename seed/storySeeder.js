@@ -9,6 +9,7 @@ module.exports = async () => {
 
 	const author_id = ObjectId('5fbff7edc2f87522b43f3787')
 	const story_id = ObjectId('5fc0ad0280383843b843ab2e')
+	const new_episode_id = ObjectId('5fc22a23c5986a3940ffea79')
 
 	const stories = [
 		{
@@ -19,7 +20,7 @@ module.exports = async () => {
 			image: 'story.jpg',
 			author: author_id, // Mg Author (author@gmail.com)
 			createdBy: ObjectId('5fbff7edc2f87522b43f3785'), // Admin (lwinmoepaong007@gmail.com)
-			episodes: [ObjectId('5fc131e005ab424dcc75479d')], // First Episode
+			episodes: [ObjectId('5fc131e005ab424dcc75479d'), new_episode_id], // First Episode
 		}
 	]
 
@@ -34,17 +35,32 @@ module.exports = async () => {
 	const episodes = [
 		{
 			_id: ObjectId('5fc131e005ab424dcc75479d'),
-			title: 'Seed Episode',
+			title: 'Seed Episode oNE',
 			author: author_id,
 			story: story_id,
-			context: Array.from({length:100},() => ({
+			episode_number: 1,
+			context: Array.from({ length: 100 },() => ({
 				type: 'MESSAGE',
 				message: faker.lorem.words(8),
 				context_position: ['LEFT', 'RIGHT'][getRandomInt(0, 1)],
 				is_theme_change: false,
 				character: characters[getRandomInt(0, 2)]
 			}))
-		}
+		},
+		{
+			_id: new_episode_id,
+			title: 'Seed Episode tWO',
+			author: author_id,
+			story: story_id,
+			episode_number: 2,
+			context: Array.from({ length: 30 },() => ({
+				type: 'MESSAGE',
+				message: faker.lorem.words(8),
+				context_position: ['LEFT', 'RIGHT'][getRandomInt(0, 1)],
+				is_theme_change: false,
+				character: characters[getRandomInt(0, 2)]
+			}))
+		},
 	]
 
 	const EpisodePromise = episodes.map(episode => Episode.findOneOrCreate({ _id: episode._id}, episode))

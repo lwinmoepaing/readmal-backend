@@ -46,5 +46,21 @@ router.get('/:id', isAuthMiddleware, EpisodeController.GET_EPISODE_BY_ID)
  */
 router.get('/:id/short', EpisodeController.GET_EPISODE_BY_ID_SHORT)
 
+/**
+ * @doc : Publish Episode
+ * @desc : Using Middlware JWT to Authenticate
+ * @route /api/v{Num}/episode/{id}/publish
+ * @method PUT
+ */
+router.put('/:id/publish', isAuthMiddleware, EpisodeController.PUBLISH_EPISODE)
+
+/**
+ * @doc : Set Premium Episode
+ * @desc : Using Middlware JWT to Authenticate
+ * @route /api/v{Num}/episode/{id}/set-premium
+ * @method PUT
+ */
+router.put('/:id/set-premium', isAuthMiddleware, EpisodeController.SET_PREMIUM_EPISODE)
+
 
 module.exports = router

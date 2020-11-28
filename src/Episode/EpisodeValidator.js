@@ -92,6 +92,37 @@ const Episode_Update_Validator = ({ body, user }) => {
 module.exports.Episode_Update_Validator = Episode_Update_Validator
 
 /**
+ * Episode Publish Validator
+ */
+const Episode_Publish_Validator = ({ body }) => {
+	const keys = {
+		// To Show Description:
+		is_published: Joi.boolean().required(),
+
+	}
+	const schema = Joi.object().keys(keys).min(1)
+	return schema.validate({ ...body}, {abortEarly: false})
+}
+
+module.exports.Episode_Publish_Validator = Episode_Publish_Validator
+
+
+/**
+ * Episode PREMIUM Validator
+ */
+const Episode_Set_Premium_Validator = ({ body }) => {
+	const keys = {
+		// To Show Description:
+		is_premium: Joi.boolean().required(),
+
+	}
+	const schema = Joi.object().keys(keys).min(1)
+	return schema.validate({ ...body}, {abortEarly: false})
+}
+
+module.exports.Episode_Set_Premium_Validator = Episode_Set_Premium_Validator
+
+/**
  * Context of Episode Create Validator
  */
 const Episode_Update_Context_Validator = ({ body }) => {

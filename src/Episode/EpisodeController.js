@@ -9,7 +9,14 @@ const User = require('../User/UserModel')
 const Episode = require('./EpisodeModel')
 const Story = require('../Story/StoryModel')
 
-const { Episode_Create_Validator, Episode_Update_Validator, Episode_Update_Context_Validator } = require('./EpisodeValidator')
+const {
+	Episode_Create_Validator,
+	Episode_Update_Validator,
+	Episode_Update_Context_Validator,
+	Episode_Publish_Validator,
+	Episode_Set_Premium_Validator
+} = require('./EpisodeValidator')
+
 const { EPISODE_IMAGE_PATH, USER_IMAGE_PATH } = require('../../config')
 
 /**
@@ -174,6 +181,7 @@ module.exports.CREATE_EPISODE = async (req, res) => {
 
 			const episodeParam = {
 				...body,
+				is_premium: story.is_including_premium ? true: false,
 				story: story._id,
 				author: requestUserId,
 				episode_number: story.episodes.length + 1
@@ -212,6 +220,7 @@ module.exports.CREATE_EPISODE = async (req, res) => {
 
 				const episodeParam = {
 					...body,
+					is_premium: story.is_including_premium ? true: false,
 					story: story._id,
 					author: checkAuthor._id,
 					episode_number: story.episodes.length + 1
@@ -347,7 +356,6 @@ module.exports.UPDATE_EPISODE = async (req, res) => {
  */
 module.exports.UPDATE_CONTEXT = async (req, res) => {
 
-
 	const { id = null } = req.params
 	const { error: idError } = IS_VALID_ID(id)
 	// Is Id Not Valid Error
@@ -426,6 +434,193 @@ module.exports.UPDATE_CONTEXT = async (req, res) => {
 			data.author.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${data.author.image}`
 
 			res.status(200).json(successResponse(data, 'Successfully Episode Updated'))
+			return
+		}
+	}
+	catch(e) {
+		res.status(400).json(errorResponse(e))
+	}
+
+}
+
+/**
+ * Publish Episode
+ */
+
+module.exports.PUBLISH_EPISODE = async (req, res) => {
+
+	const { id = null } = req.params
+	const { error: idError } = IS_VALID_ID(id)
+	// Is Id Not Valid Error
+	if (idError) {
+		res.status(400).json( MANAGE_ERROR_MESSAGE(idError) )
+		return
+	}
+
+	const { error, value } = Episode_Publish_Validator(req)
+	if (error) {
+		res.status(400).json( MANAGE_ERROR_MESSAGE(error) )
+		return
+	}
+
+	try {
+		const episode = await Episode.findById(id)
+		if (!episode) throw new Error('Episode Not Found')
+
+		const body = value
+		const isAdmin = req.user.role === 'ADMIN'
+		const isAuthor = req.user.role === 'AUTHOR'
+		const requestUserRole = req.user.role
+
+		// Check Request User Roles
+		const allowedPermissionRoles = ['ADMIN', 'AUTHOR']
+		if (!allowedPermissionRoles.includes(requestUserRole)) {
+			throw new Error('Permission is not allowed for Request User Role.')
+		}
+
+		// If Already Published
+		if (episode.is_published) {
+			throw new Error('Episode is already published.')
+		}
+
+		// At least 80 lines
+		if (episode.context.length < 80 ) {
+			throw new Error('There should be at least 80 line messages.')
+		}
+
+		// Greater Than Addable Message
+		if (episode.context.length > episode.addable_message_count) {
+			throw new Error('Message line is greater than Addable Message.')
+		}
+
+		// If Request User is Author Case
+		if (isAuthor) {
+
+			// Check is own story or not
+			if (DEEP_JSON_COPY(episode.author) !== DEEP_JSON_COPY(req.user._id)) {
+				throw new Error('This is not your story. So you are not allowed to add episode.')
+			}
+
+			console.log('\nRequest user is Author with Own Story\n>>>>')
+
+			const episodeParam = {
+				...body,
+				snap_context: episode.context,
+				first_time_context: episode.context,
+				is_editable: false
+			}
+
+			const updateEpisode = await Episode.findByIdAndUpdate(id, episodeParam, {new: true})
+
+			const data = await updateEpisode
+				.populate('author', '_id name email image rank')
+				.populate('story', '_id title description episodes')
+				.execPopulate()
+
+			data.image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.image}`
+			data.background_context_image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.background_context_image}`
+			data.author.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${data.author.image}`
+
+			res.status(200).json(successResponse( data, 'Successfully Episode Published'))
+			return
+		}
+
+		// // If Request User is Admin Case
+		else if (isAdmin) {
+			console.log('\nRequest user is Admin with User Id\n>>>>')
+
+			const episodeParam = {
+				...body,
+				snap_context: episode.context,
+				first_time_context: episode.context,
+				is_editable: false
+			}
+
+			const updateEpisode = await Episode.findByIdAndUpdate(id, episodeParam, {new: true})
+
+			const data = await updateEpisode
+				.populate('author', '_id name email image rank')
+				.populate('story', '_id title description episodes')
+				.execPopulate()
+
+			data.image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.image}`
+			data.background_context_image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.background_context_image}`
+			data.author.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${data.author.image}`
+
+			res.status(200).json(successResponse(data, 'Successfully Episode Published'))
+			return
+		}
+	}
+	catch(e) {
+		res.status(400).json(errorResponse(e))
+	}
+
+}
+
+/**
+ * SET Premium Episode
+ */
+
+module.exports.SET_PREMIUM_EPISODE = async (req, res) => {
+
+	const { id = null } = req.params
+	const { error: idError } = IS_VALID_ID(id)
+	// Is Id Not Valid Error
+	if (idError) {
+		res.status(400).json( MANAGE_ERROR_MESSAGE(idError) )
+		return
+	}
+
+	const { error, value } = Episode_Set_Premium_Validator(req)
+	if (error) {
+		res.status(400).json( MANAGE_ERROR_MESSAGE(error) )
+		return
+	}
+
+	try {
+		const episode = await Episode.findById(id)
+		if (!episode) throw new Error('Episode Not Found')
+
+		const body = value
+		const isAdmin = req.user.role === 'ADMIN'
+		const requestUserRole = req.user.role
+
+		// Check Request User Roles
+		const allowedPermissionRoles = ['ADMIN']
+		if (!allowedPermissionRoles.includes(requestUserRole)) {
+			throw new Error('Permission is not allowed for Request User Role.')
+		}
+
+		// If Already Premium
+		if (episode.is_premium) {
+			throw new Error('Episode is already premium.')
+		}
+
+		// If Request User is Admin Case
+		if (isAdmin) {
+			console.log('\nRequest user is Admin with User Id\n>>>>')
+
+			const episodeParam = {
+				...body,
+			}
+
+			const updateEpisode = await Episode.findByIdAndUpdate(id, episodeParam, {new: true})
+
+			const data = await updateEpisode
+				.populate('author', '_id name email image rank')
+				.populate('story', '_id title description episodes')
+				.execPopulate()
+
+			data.image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.image}`
+			data.background_context_image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.background_context_image}`
+			data.author.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${data.author.image}`
+
+			// Set Parent Story Is Including Premium
+			await Story.findByIdAndUpdate(episode.story, {
+				is_including_premium: true
+			})
+
+			res.status(200).json(successResponse(data, 'Successfully Episode Published'))
 			return
 		}
 	}
