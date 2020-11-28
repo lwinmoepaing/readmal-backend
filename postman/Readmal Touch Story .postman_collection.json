@@ -510,6 +510,40 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Update Context Episode By Id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"context\": [\r\n        {\r\n            \"type\": \"MESSAGE\",\r\n            \"message\": \"\",\r\n            \"context_position\": \"LEFT\",\r\n            \"context_url\": \"\",\r\n            \"character\": {\r\n                \"id\": \"123333\",\r\n                \"name\": \"Hehe\",\r\n                \"color\": \"#dfdfdf\"\r\n            }\r\n        }\r\n    ],\r\n\r\n    \"background_context_image\": \"background_context.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/episode/{{episode_id}}/update-context",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"episode",
+								"{{episode_id}}",
+								"update-context"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -532,12 +566,12 @@
 	],
 	"variable": [
 		{
-			"id": "afe00a7b-67af-434a-ab30-3c8e45025f4e",
+			"id": "3e7fa38a-aae5-4ba5-bc81-f98fec141cde",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "85036de2-d820-432f-a5c4-b85cf8a58142",
+			"id": "89c3aca6-72de-4551-8274-85f06be0c24b",
 			"key": "token",
 			"value": ""
 		}
