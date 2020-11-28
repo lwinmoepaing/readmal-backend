@@ -493,6 +493,24 @@ module.exports.PUBLISH_EPISODE = async (req, res) => {
 			throw new Error('Message line is greater than Addable Message.')
 		}
 
+		const story = await Story.findById(episode.story)
+			.populate('episodes', '_id is_premium author title description episode_number is_published')
+
+
+		const previousStory = story.episodes.find(epi => epi.episode_number === (episode.episode_number - 1) )
+
+		// console.log('episode.episode_number', episode.episode_number)
+		// console.log('previousStory', previousStory)
+		// console.log('previousStory.is_published', previousStory.is_published)
+
+		if (
+			episode.episode_number !== 1 &&
+			previousStory &&
+			previousStory.is_published === false
+		) {
+			throw new Error('You need to publish previous episode first.')
+		}
+
 		// If Request User is Author Case
 		if (isAuthor) {
 
