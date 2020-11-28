@@ -394,6 +394,122 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Update Episode By Id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "1 one one one",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "some description",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "is_show_description",
+									"value": "false",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "author",
+									"value": "{{author_id}}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/episode/{{episode_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"episode",
+								"{{episode_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Episode By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/episode/{{episode_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"episode",
+								"{{episode_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Episode By Short Mode",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/episode/{{episode_id}}/short",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"episode",
+								"{{episode_id}}",
+								"short"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -416,12 +532,12 @@
 	],
 	"variable": [
 		{
-			"id": "1af900ee-2f6b-4234-885f-e0bcaccbf13d",
+			"id": "afe00a7b-67af-434a-ab30-3c8e45025f4e",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "f30d7018-e791-4c6f-b125-bb3e52fb4032",
+			"id": "85036de2-d820-432f-a5c4-b85cf8a58142",
 			"key": "token",
 			"value": ""
 		}

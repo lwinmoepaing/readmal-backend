@@ -13,6 +13,112 @@ const { Episode_Create_Validator, Episode_Update_Validator } = require('./Episod
 const { EPISODE_IMAGE_PATH, USER_IMAGE_PATH } = require('../../config')
 
 /**
+ * GET Episode
+ */
+module.exports.GET_EPISODE_BY_ID = async (req, res) => {
+
+	const { id = null } = req.params
+	const { error: idError } = IS_VALID_ID(id)
+	// Is Id Not Valid Error
+	if (idError) {
+		res.status(400).json(MANAGE_ERROR_MESSAGE(idError))
+		return
+	}
+
+	try {
+		const episode = await Episode.findById(id)
+		if (!episode) {
+			throw new Error('Episode is not found.')
+		}
+
+		const data = await episode
+			.populate('author', '_id name email image rank')
+			.populate(
+				{
+					path: 'story',
+					select: '_id title description episodes',
+					populate: {
+						path: 'episodes',
+						select: '_id title description episode_number is_premium'
+					}
+				}
+			)
+			.execPopulate()
+
+		data.image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.image}`
+		data.background_context_image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.background_context_image}`
+		data.author.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${data.author.image}`
+
+		res.status(200).json(successResponse( data, 'Successfully Episode Created'))
+		return
+	}
+	catch(e) {
+		res.status(400).json(errorResponse(e))
+	}
+
+}
+
+/**
+ * GET Episode Short Mode
+ */
+module.exports.GET_EPISODE_BY_ID_SHORT = async (req, res) => {
+
+	const { id = null } = req.params
+	const { error: idError } = IS_VALID_ID(id)
+	// Is Id Not Valid Error
+	if (idError) {
+		res.status(400).json(MANAGE_ERROR_MESSAGE(idError))
+		return
+	}
+
+	try {
+		const excludeParams = [
+			'__v',
+			'addable_image_count',
+			'addable_message_count',
+			'is_editable',
+			'deletedAt',
+			'context',
+			'snap_context',
+			'first_time_context',
+			'viwers'
+		]
+
+		const episode = await Episode
+			.findById(id)
+			.select(excludeParams.map(param => `-${param}`).join(' '))
+
+		if (!episode) {
+			throw new Error('Episode is not found.')
+		}
+
+		const data = await episode
+			.populate('author', '_id name email image rank')
+			.populate(
+				{
+					path: 'story',
+					select: '_id title description episodes',
+					populate: {
+						path: 'episodes',
+						select: '_id title description episode_number is_premium'
+					}
+				}
+			)
+			.execPopulate()
+
+		data.image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.image}`
+		data.background_context_image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.background_context_image}`
+		data.author.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${data.author.image}`
+
+		res.status(200).json(successResponse( data, 'Successfully Episode Created'))
+		return
+	}
+	catch(e) {
+		res.status(400).json(errorResponse(e))
+	}
+
+}
+
 
 /**
  * Create Episode
@@ -84,8 +190,8 @@ module.exports.CREATE_EPISODE = async (req, res) => {
 			})
 
 			const data = await episode
-				.populate('author', '_id name email image')
-				.populate('story', '_id title description')
+				.populate('author', '_id name email image rank')
+				.populate('story', '_id title description episodes')
 				.execPopulate()
 
 			data.image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.image}`
@@ -120,8 +226,8 @@ module.exports.CREATE_EPISODE = async (req, res) => {
 					episodes: [...story.episodes, episode._id]
 				})
 				const data = await episode
-					.populate('author', '_id name email image')
-					.populate('story', '_id title description')
+					.populate('author', '_id name email image rank')
+					.populate('story', '_id title description episodes')
 					.execPopulate()
 
 				data.image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.image}`
@@ -195,8 +301,8 @@ module.exports.UPDATE_EPISODE = async (req, res) => {
 			const episode = await Episode.findByIdAndUpdate(id, episodeParam, {new: true})
 
 			const data = await episode
-				.populate('author', '_id name email image')
-				.populate('story', '_id title description')
+				.populate('author', '_id name email image rank')
+				.populate('story', '_id title description episodes')
 				.execPopulate()
 
 			data.image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.image}`
@@ -218,8 +324,8 @@ module.exports.UPDATE_EPISODE = async (req, res) => {
 			const episode = await Episode.findByIdAndUpdate(id, episodeParam, {new: true})
 
 			const data = await episode
-				.populate('author', '_id name email image')
-				.populate('story', '_id title description')
+				.populate('author', '_id name email image rank')
+				.populate('story', '_id title description episodes')
 				.execPopulate()
 
 			data.image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.image}`
