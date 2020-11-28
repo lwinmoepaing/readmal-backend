@@ -287,14 +287,14 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/story/{{story_id}}/publish",
+							"raw": "{{url}}/story/{{story_id}}/finish",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"story",
 								"{{story_id}}",
-								"publish"
+								"finish"
 							]
 						}
 					},
@@ -544,6 +544,76 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Publish Episode By Id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "is_published",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/episode/{{episode_id}}/publish",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"episode",
+								"{{episode_id}}",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Premium Episode By Id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "is_premium",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/episode/{{episode_id}}/set-premium",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"episode",
+								"{{episode_id}}",
+								"set-premium"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -566,12 +636,12 @@
 	],
 	"variable": [
 		{
-			"id": "3e7fa38a-aae5-4ba5-bc81-f98fec141cde",
+			"id": "ac241c60-e5fe-4413-98ce-a73fd19ece04",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "89c3aca6-72de-4551-8274-85f06be0c24b",
+			"id": "15e16702-af72-4029-b906-96b8a2412c40",
 			"key": "token",
 			"value": ""
 		}
