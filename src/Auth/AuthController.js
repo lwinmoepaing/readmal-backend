@@ -131,6 +131,12 @@ module.exports.LOGIN_WITH_FACEBOOK = (req, res) => {
 
 module.exports.LOGIN_WITH_FACEBOOK_CALLBACK = (req, res) => {
 	// Successful authentication, redirect home.
+
+	if (process.env.WEB_APP_SOCIAL_LOGIN_URL) {
+		res.redirect(process.env.WEB_APP_SOCIAL_LOGIN_URL + '?token=' + req.user )
+		return
+	}
+
 	res.redirect(process.env.API_URL + '/auth/' + 'successLogin?token=' + req.user )
 }
 

@@ -1,5 +1,3 @@
-
-
 const PACKAGE_NAME_LIST = {
 	MONTHLY_SUBSCRIBE: {
 		description: 'User have access 30days and can read normal stories. Expired Date\'ll appear in user profile setting.',
