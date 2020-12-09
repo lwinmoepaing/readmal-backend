@@ -262,7 +262,7 @@ module.exports.GET_STORY_BY_AUTHOR_ID = async (req, res) => {
 		}
 
 		const storyListPaginate = await Story.paginate({ author: id }, options)
-		const { data } = storyListPaginate
+		const { data, meta } = storyListPaginate
 		data.map((story, index) => {
 			data[index].image = `${process.env.BASE_URL}/${STORY_IMAGE_PATH}/${story.image}`
 			data[index].createdBy.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${story.createdBy.image}`
@@ -272,7 +272,7 @@ module.exports.GET_STORY_BY_AUTHOR_ID = async (req, res) => {
 			})
 		})
 
-		res.status(200).json({message: 'Successfully fetching story by author id.', ...data})
+		res.status(200).json({message: 'Successfully fetching story by author id.', data: data, meta})
 	}
 	catch(e) {
 		res.status(400).json(errorResponse(e))
