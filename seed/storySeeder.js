@@ -67,7 +67,7 @@ module.exports = async () => {
 			title: 'Seed Episode 3',
 			author: author_id,
 			story: story_id,
-			episode_number: 2,
+			episode_number: 3,
 			context: Array.from({ length: 80 },() => ({
 				type: 'MESSAGE',
 				message: faker.lorem.words(8),
