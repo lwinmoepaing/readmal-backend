@@ -17,6 +17,7 @@ module.exports = async () => {
 			short_url: '1H1i8VapKKzFtWqKbvRYJg',
 			category: 'Horror',
 			title: 'First Story !!',
+			description: 'Some Description -- 1',
 			image: 'story.jpg',
 			addable_episode_count: 2,
 			author: author_id, // Mg Author (author@gmail.com)
