@@ -22,6 +22,13 @@ router.post('/', isAuthMiddleware, StoryController.CREATE_STORY)
 router.get('/:id', StoryController.GET_STORY_BY_ID)
 
 /**
+ * @doc : Get Story By AuthorId
+ * @desc : Using Middlware JWT to Authenticate
+ * @route /api/v{Num}/story/author-id/{id}
+ */
+router.get('/author-id/:id', StoryController.GET_STORY_BY_AUTHOR_ID)
+
+/**
  * @doc : Update Story
  * @desc : Using Middlware JWT to Authenticate
  * @route /api/v{Num}/story/count

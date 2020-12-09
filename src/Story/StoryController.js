@@ -12,7 +12,7 @@ const {
 
 const Story = require('./StoryModel')
 const User = require('../User/UserModel')
-const { USER_IMAGE_PATH, STORY_IMAGE_PATH } = require('../../config')
+const { USER_IMAGE_PATH, STORY_IMAGE_PATH, PAGINATE_LABELS, EPISODE_IMAGE_PATH } = require('../../config')
 
 /**
  * Create Story
@@ -223,6 +223,56 @@ module.exports.GET_STORY_BY_ID = async (req, res) => {
 
 		res.status(200).json(successResponse(data, 'Successfully fetching story.'))
 
+	}
+	catch(e) {
+		res.status(400).json(errorResponse(e))
+	}
+}
+
+/**
+ * Get Story By Id
+ */
+module.exports.GET_STORY_BY_AUTHOR_ID = async (req, res) => {
+	const { id = null } = req.params
+	const { error: idError } = IS_VALID_ID(id)
+	// Is Id Not Valid Error
+	if (idError) {
+		res.status(400).json(MANAGE_ERROR_MESSAGE(idError))
+		return
+	}
+
+	try {
+		const excludesValue = ['__v', 'createdAt', 'deletedAt', 'updatedAt', 'viwers', 'addable_episode_count']
+
+		// If Story Not Found
+		const { page = 1 } = req.query
+		const limit = 10
+		const showUserData = 'name email image role'
+		const options = {
+			select: excludesValue.map(txt => `-${txt}`).join(' '),
+			sort: { createdAt: -1 },
+			page,
+			limit,
+			customLabels: PAGINATE_LABELS,
+			populate:[
+				{ path: 'author', select: showUserData },
+				{ path: 'createdBy', select: showUserData },
+				{ path: 'episodes', select: '_id is_premium author title description episode_number is_published image' },
+			]
+		}
+
+		const storyListPaginate = await Story.paginate({ author: id }, options)
+		const { data } = storyListPaginate
+		data.map((story, index) => {
+			data[index].image = `${process.env.BASE_URL}/${STORY_IMAGE_PATH}/${story.image}`
+			data[index].createdBy.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${story.createdBy.image}`
+			data[index].author.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${story.author.image}`
+			data[index].episodes.map((episode, episodeIndex) => {
+				data[index].episodes[episodeIndex].image  = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${episode.image}`
+			})
+		})
+
+		res.status(200).json({message: 'Successfully fetching story by author id.', ...data})
 	}
 	catch(e) {
 		res.status(400).json(errorResponse(e))
