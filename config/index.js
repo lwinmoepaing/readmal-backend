@@ -27,7 +27,7 @@ const THROPHY_RANKS = ['Champion', 'First_RunnerUp', 'Second_RunnerUp', 'People_
 /**
  * Book Categories
  */
-const BOOK_CATEGORIES = ['Horror', 'Comedy', 'Drama', 'Detective']
+const BOOK_CATEGORIES = ['Horror', 'Comedy', 'Romance', 'Detective']
 
 /**
  * Payment Types
