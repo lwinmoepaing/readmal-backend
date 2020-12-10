@@ -28,9 +28,7 @@ const fileFilter = (req, file, cb) => {
 	if (
 		!file.mimetype.includes('jpeg') &&
 		!file.mimetype.includes('jpg') &&
-		!file.mimetype.includes('png') &&
-		!file.mimetype.includes('gif')
-	) {
+		!file.mimetype.includes('png') ) {
 		return cb(null, false, new Error('Only images are allowed'))
 	} else {
 		cb(null, true)
@@ -47,10 +45,12 @@ module.exports.passUpload = (req, res, next) => {
 		return
 	}
 
-
 	const upload = multer(
 		{
 			storage: storage(req.query.path || 'profile'),
+			limits: {
+				fileSize: 1024 * 1024
+			},
 			fileFilter
 		}
 	).single('image')
@@ -59,8 +59,8 @@ module.exports.passUpload = (req, res, next) => {
 		try {
 			if (err instanceof multer.MulterError) {
 				// A Multer error occurred when uploading.
-				console.log('Error', err)
-				throw new Error ('Something Wrong When Uploading')
+				if (err.code === 'LIMIT_FILE_SIZE') throw new Error('Your image is larger than 1mb')
+				throw new Error (err.message ? err.message : 'Something Wrong When Uploading')
 			} else if (err) {
 				// An unknown error occurred when uploading.
 				throw err

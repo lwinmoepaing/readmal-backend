@@ -40,13 +40,15 @@ module.exports.CREATE_IMAGE = async (req, res) => {
 			throw new Error('Invalid File')
 		}
 
-		const imageFilePath = `${req.file.filename}`
+		const path = req.query.path || 'profile'
+
+		const imageFilePath = `${process.env.BASE_URL}/${path}/${req.file.filename}`
 
 		const image = new Image({
 			image: imageFilePath,
 			createdBy: `${req.user._id}`,
 			text: req.query.text || '',
-			path: req.query.path || 'profile',
+			path: path,
 		})
 
 		await image.save()
