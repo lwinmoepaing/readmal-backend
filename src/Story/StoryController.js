@@ -301,7 +301,7 @@ module.exports.PUBLISH_STORY_BY_ID = async (req, res) => {
 	try {
 		// If Story Not Found
 		const existStory = await Story.findById(id)
-			.populate('episode', 'title description episode_number is_published is_premium author')
+			.populate('episodes', 'title description episode_number is_published is_premium author')
 		if (!existStory) { throw new Error('Story Not Found') }
 
 		if (existStory.is_published === true) {
@@ -313,6 +313,7 @@ module.exports.PUBLISH_STORY_BY_ID = async (req, res) => {
 		}
 
 		const isPublishedEpisodes = existStory.episodes.filter(data => data.is_published === true )
+		console.log('existStory.episodes', JSON.stringify( existStory.episodes, null, 2))
 		if (isPublishedEpisodes.length <= 0) {
 			throw new Error('There must be at least one published episode.')
 		}

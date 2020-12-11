@@ -335,6 +335,25 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Story By Author Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/story/author-id/{{author_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"story",
+								"author-id",
+								"{{author_id}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -685,12 +704,12 @@
 	],
 	"variable": [
 		{
-			"id": "e8e36dae-97c0-482d-b79d-d7afe353014c",
+			"id": "92a75262-9c2b-4443-a074-d139da2afca1",
 			"key": "url",
 			"value": ""
 		},
 		{
-			"id": "6d7968bb-c29d-4612-8df9-b865192ea97e",
+			"id": "154909ad-9964-4efe-85b1-9ef62a04ba54",
 			"key": "token",
 			"value": ""
 		}
