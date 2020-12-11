@@ -242,7 +242,7 @@ module.exports.GET_STORY_BY_AUTHOR_ID = async (req, res) => {
 	}
 
 	try {
-		const excludesValue = ['__v', 'createdAt', 'deletedAt', 'updatedAt', 'viwers', 'addable_episode_count']
+		const excludesValue = ['__v', 'createdAt', 'deletedAt', 'updatedAt', 'viwers']
 
 		// If Story Not Found
 		const { page = 1 } = req.query
