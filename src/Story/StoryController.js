@@ -213,13 +213,15 @@ module.exports.GET_STORY_BY_ID = async (req, res) => {
 		const data = await existStory
 			.populate('author', showUserData)
 			.populate('createdBy', showUserData)
-			.populate('episodes', '_id is_premium author title description episode_number is_published')
+			.populate('episodes', '_id is_premium author title description episode_number is_published image')
 			.execPopulate()
 
 		data.image = `${process.env.BASE_URL}/${STORY_IMAGE_PATH}/${data.image}`
 		data.createdBy.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${data.createdBy.image}`
 		data.author.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${data.author.image}`
-
+		data.episodes.map((episode, episodeIndex) => {
+			data.episodes[episodeIndex].image  = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${episode.image}`
+		})
 
 		res.status(200).json(successResponse(data, 'Successfully fetching story.'))
 

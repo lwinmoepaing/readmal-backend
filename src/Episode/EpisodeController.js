@@ -165,7 +165,7 @@ module.exports.CREATE_EPISODE = async (req, res) => {
 			throw new Error('Permission is not allowed for Request User Role.')
 		}
 
-		// // If Request User is Author Case
+		// If Request User is Author Case
 		if (isAuthor) {
 
 			// Check is own story or not
@@ -185,6 +185,11 @@ module.exports.CREATE_EPISODE = async (req, res) => {
 				story: story._id,
 				author: requestUserId,
 				episode_number: story.episodes.length + 1
+			}
+
+			// Default Image Set to Category Image
+			if (!req.body.image) {
+				episodeParam.image = `${story.category}.jpg`
 			}
 
 			const episode = new Episode(episodeParam)
@@ -210,7 +215,7 @@ module.exports.CREATE_EPISODE = async (req, res) => {
 			return
 		}
 
-		// // If Request User is Admin Case
+		// If Request User is Admin Case
 		else if (isAdmin) {
 			const checkAuthor = await User.findById(body.author)
 
@@ -293,7 +298,7 @@ module.exports.UPDATE_EPISODE = async (req, res) => {
 			throw new Error('Permission is not allowed for Request User Role.')
 		}
 
-		// // If Request User is Author Case
+		// If Request User is Author Case
 		if (isAuthor) {
 
 			// Check is own story or not
@@ -322,7 +327,7 @@ module.exports.UPDATE_EPISODE = async (req, res) => {
 			return
 		}
 
-		// // If Request User is Admin Case
+		// If Request User is Admin Case
 		else if (isAdmin) {
 			console.log('\nRequest user is Admin with User Id\n>>>>')
 
@@ -385,7 +390,7 @@ module.exports.UPDATE_CONTEXT = async (req, res) => {
 			throw new Error('Permission is not allowed for Request User Role.')
 		}
 
-		// // If Request User is Author Case
+		// If Request User is Author Case
 		if (isAuthor) {
 
 			// Check is own story or not
@@ -414,7 +419,7 @@ module.exports.UPDATE_CONTEXT = async (req, res) => {
 			return
 		}
 
-		// // If Request User is Admin Case
+		// If Request User is Admin Case
 		else if (isAdmin) {
 			console.log('\nRequest user is Admin with User Id\n>>>>')
 
@@ -543,7 +548,7 @@ module.exports.PUBLISH_EPISODE = async (req, res) => {
 			return
 		}
 
-		// // If Request User is Admin Case
+		// If Request User is Admin Case
 		else if (isAdmin) {
 			console.log('\nRequest user is Admin with User Id\n>>>>')
 
