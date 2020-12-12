@@ -18,7 +18,7 @@ const Episode_Create_Validator = ({ body, user }) => {
 		title: Joi.string().trim().min(3).required(),
 
 		// Description: If at least string "" must be included
-		description: Joi.string().trim(true),
+		description: Joi.string(),
 
 		// To Show Description:
 		is_show_description: Joi.boolean().optional(),
