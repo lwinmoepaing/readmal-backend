@@ -64,7 +64,7 @@ const contextSchema = new Schema({
 		type: Boolean,
 		default: false,
 	},
-	is_theme_change_url: {
+	theme_change_url: {
 		type: String,
 		default: '',
 	},

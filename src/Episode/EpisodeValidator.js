@@ -138,15 +138,15 @@ const Episode_Update_Context_Validator = ({ body }) => {
 
 		context_url: Joi.string().allow('').optional(),
 
-		has_audio: Joi.boolean().allow('').optional(),
+		has_audio: Joi.boolean().optional(),
 
 		audio_url: Joi.string().allow('').optional(),
 
-		is_theme_change: Joi.boolean().allow('').optional(),
+		is_theme_change: Joi.boolean().optional(),
 
 		theme_change_url: Joi.string().allow('').optional(),
 
-		is_show_character: Joi.boolean().allow('').optional(),
+		is_show_character: Joi.boolean().optional(),
 
 		character: Joi.object().keys({
 
