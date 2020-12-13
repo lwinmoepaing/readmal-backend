@@ -128,6 +128,8 @@ module.exports.Episode_Set_Premium_Validator = Episode_Set_Premium_Validator
 const Episode_Update_Context_Validator = ({ body }) => {
 
 	const contextSchema = Joi.object().keys({
+		id: Joi.string().required(),
+
 		type: Joi.string().valid(...['MESSAGE', 'THINKING_MESSAGE', 'IMAGE']).required(),
 
 		message: Joi.string().allow('').optional(),
@@ -135,6 +137,16 @@ const Episode_Update_Context_Validator = ({ body }) => {
 		context_position: Joi.string().valid(...['LEFT', 'RIGHT', 'CENTER']).required(),
 
 		context_url: Joi.string().allow('').optional(),
+
+		has_audio: Joi.boolean().allow('').optional(),
+
+		audio_url: Joi.string().allow('').optional(),
+
+		is_theme_change: Joi.boolean().allow('').optional(),
+
+		theme_change_url: Joi.string().allow('').optional(),
+
+		is_show_character: Joi.boolean().allow('').optional(),
 
 		character: Joi.object().keys({
 

@@ -56,7 +56,7 @@ module.exports.GET_EPISODE_BY_ID = async (req, res) => {
 		data.background_context_image = `${process.env.BASE_URL}/${EPISODE_IMAGE_PATH}/${data.background_context_image}`
 		data.author.image = `${process.env.BASE_URL}/${USER_IMAGE_PATH}/${data.author.image}`
 
-		res.status(200).json(successResponse( data, 'Successfully Episode Created'))
+		res.status(200).json(successResponse( data, 'Successfully Episode Fetching'))
 		return
 	}
 	catch(e) {
@@ -404,9 +404,9 @@ module.exports.UPDATE_CONTEXT = async (req, res) => {
 				...body,
 			}
 
-			const episode = await Episode.findByIdAndUpdate(id, episodeParam, {new: true})
+			const updateEpisode = await Episode.findByIdAndUpdate(id, { snap_context: episodeParam.context }, {new: true})
 
-			const data = await episode
+			const data = await updateEpisode
 				.populate('author', '_id name email image rank')
 				.populate('story', '_id title description episodes')
 				.execPopulate()
@@ -427,7 +427,7 @@ module.exports.UPDATE_CONTEXT = async (req, res) => {
 				...body,
 			}
 
-			const episode = await Episode.findByIdAndUpdate(id, episodeParam, {new: true})
+			const episode = await Episode.findByIdAndUpdate(id,  { snap_context: episodeParam.context }, {new: true})
 
 			const data = await episode
 				.populate('author', '_id name email image rank')
@@ -443,6 +443,7 @@ module.exports.UPDATE_CONTEXT = async (req, res) => {
 		}
 	}
 	catch(e) {
+		console.log(e)
 		res.status(400).json(errorResponse(e))
 	}
 
@@ -528,8 +529,8 @@ module.exports.PUBLISH_EPISODE = async (req, res) => {
 
 			const episodeParam = {
 				...body,
-				snap_context: episode.context,
-				first_time_context: episode.context,
+				context: episode.snap_context,
+				first_time_context: episode.snap_context,
 				is_editable: false
 			}
 
