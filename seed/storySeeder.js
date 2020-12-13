@@ -1,6 +1,7 @@
 const faker = require('faker')
 const { ObjectId } = require('mongoose').mongo
 const Story = require('../src/Story/StoryModel')
+const uuid = require('uuid/v4')
 
 const Episode = require('../src/Episode/EpisodeModel')
 const { Character } = require('../src/Episode/EpisodeHelper')
@@ -34,6 +35,19 @@ module.exports = async () => {
 		new Character('3', 'Tun Tun', '#fdcb6e')
 	]
 
+	const makeContext = (length = 10) => Array.from({ length },() => ({
+		id: uuid(),
+		type: 'MESSAGE',
+		message: faker.lorem.words(8),
+		context_position: ['LEFT', 'RIGHT'][getRandomInt(0, 1)],
+		is_theme_change: false,
+		character: characters[getRandomInt(0, 2)]
+	}))
+
+	const contextOne = makeContext(100)
+	const contextTwo = makeContext(20)
+	const contextThree = makeContext(80)
+
 	const episodes = [
 		{
 			_id: ObjectId('5fc131e005ab424dcc75479d'),
@@ -41,13 +55,9 @@ module.exports = async () => {
 			author: author_id,
 			story: story_id,
 			episode_number: 1,
-			context: Array.from({ length: 100 },() => ({
-				type: 'MESSAGE',
-				message: faker.lorem.words(8),
-				context_position: ['LEFT', 'RIGHT'][getRandomInt(0, 1)],
-				is_theme_change: false,
-				character: characters[getRandomInt(0, 2)]
-			}))
+			context: contextOne,
+			snap_context: contextOne,
+			first_time_context: contextOne
 		},
 		{
 			_id: new_episode_id,
@@ -55,13 +65,9 @@ module.exports = async () => {
 			author: author_id,
 			story: story_id,
 			episode_number: 2,
-			context: Array.from({ length: 120 },() => ({
-				type: 'MESSAGE',
-				message: faker.lorem.words(8),
-				context_position: ['LEFT', 'RIGHT'][getRandomInt(0, 1)],
-				is_theme_change: false,
-				character: characters[getRandomInt(0, 2)]
-			}))
+			context: contextTwo,
+			snap_context: contextTwo,
+			first_time_context: contextTwo
 		},
 		{
 			_id: '5fc23cf394566d45f42820ff',
@@ -69,13 +75,9 @@ module.exports = async () => {
 			author: author_id,
 			story: story_id,
 			episode_number: 3,
-			context: Array.from({ length: 80 },() => ({
-				type: 'MESSAGE',
-				message: faker.lorem.words(8),
-				context_position: ['LEFT', 'RIGHT'][getRandomInt(0, 1)],
-				is_theme_change: false,
-				character: characters[getRandomInt(0, 2)]
-			}))
+			context: contextThree,
+			snap_context: contextThree,
+			first_time_context: contextThree
 		},
 	]
 

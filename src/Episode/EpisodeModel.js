@@ -27,9 +27,13 @@ const characterSchema = new Schema({
 }, { _id: false })
 
 const contextSchema = new Schema({
+	id: {
+		type: String,
+		required: true,
+	},
 	type: {
 		type: String,
-		enum: ['AUDIO', 'MESSAGE', 'THINKING_MESSAGE', 'IMAGE'],
+		enum: ['MESSAGE', 'THINKING_MESSAGE', 'IMAGE'],
 		default: 'TEXT',
 		required: true
 	},
@@ -47,6 +51,14 @@ const contextSchema = new Schema({
 	context_url: {
 		type: String,
 		default: '',
+	},
+	has_audio: {
+		type: Boolean,
+		default: false
+	},
+	audio_url: {
+		type: String,
+		default: ''
 	},
 	is_theme_change: {
 		type: Boolean,
@@ -117,7 +129,7 @@ const episodeSchema = new Schema({
 	addable_message_count: {
 		type: Number,
 		required: true,
-		default: 110
+		default: 120
 	},
 
 	// When Publish is Editable set to false

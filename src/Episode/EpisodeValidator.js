@@ -128,7 +128,7 @@ module.exports.Episode_Set_Premium_Validator = Episode_Set_Premium_Validator
 const Episode_Update_Context_Validator = ({ body }) => {
 
 	const contextSchema = Joi.object().keys({
-		type: Joi.string().valid(...['AUDIO', 'MESSAGE', 'THINKING_MESSAGE', 'IMAGE']).required(),
+		type: Joi.string().valid(...['MESSAGE', 'THINKING_MESSAGE', 'IMAGE']).required(),
 
 		message: Joi.string().allow('').optional(),
 
