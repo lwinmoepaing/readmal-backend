@@ -10,10 +10,10 @@ module.exports = async () => {
 	const users = [
 		{
 			_id: ObjectId('5fbff7edc2f87522b43f3785'),
-			name: 'Lwin Moe Paing',
-			email: 'lwinmoepaing007@gmail.com',
-			facebook_social_id: '2006270212842582',
-			current_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmJmZjdlZGMyZjg3NTIyYjQzZjM3ODUiLCJuYW1lIjoiTHdpbiBNb2UgUGFpbmciLCJlbWFpbCI6Imx3aW5tb2VwYWluZzAwN0BnbWFpbC5jb20iLCJpYXQiOjE2MDY1NjkwNjd9.juBpNyev5br671oeiWE9tdfjaZfpzSPWeYBjlr3uGFE',
+			name: 'Author',
+			email: 'author@gmail.com',
+			// facebook_social_id: '2006270212842582',
+			// current_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmJmZjdlZGMyZjg3NTIyYjQzZjM3ODUiLCJuYW1lIjoiTHdpbiBNb2UgUGFpbmciLCJlbWFpbCI6Imx3aW5tb2VwYWluZzAwN0BnbWFpbC5jb20iLCJpYXQiOjE2MDY1NjkwNjd9.juBpNyev5br671oeiWE9tdfjaZfpzSPWeYBjlr3uGFE',
 			password,
 			role: 'ADMIN'
 		},
@@ -26,8 +26,11 @@ module.exports = async () => {
 		},
 		{
 			_id: ObjectId('5fbff7edc2f87522b43f3787'),
-			name: 'Mg Author',
-			email: 'author@gmail.com',
+			name: 'Mg Lwin',
+			email: 'lwinmoepaing007@gmail.com',
+			facebook_social_id: '2006270212842582',
+			current_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmJmZjdlZGMyZjg3NTIyYjQzZjM3ODUiLCJuYW1lIjoiTHdpbiBNb2UgUGFpbmciLCJlbWFpbCI6Imx3aW5tb2VwYWluZzAwN0BnbWFpbC5jb20iLCJpYXQiOjE2MDY1NjkwNjd9.juBpNyev5br671oeiWE9tdfjaZfpzSPWeYBjlr3uGFE',
+
 			password,
 			role: 'AUTHOR'
 		},
