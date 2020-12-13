@@ -490,12 +490,12 @@ module.exports.PUBLISH_EPISODE = async (req, res) => {
 		}
 
 		// At least 80 lines
-		if (episode.context.length < 80 ) {
+		if (episode.snap_context.length < 80 ) {
 			throw new Error('There should be at least 80 line messages.')
 		}
 
 		// Greater Than Addable Message
-		if (episode.context.length > episode.addable_message_count) {
+		if (episode.snap_context.length > episode.addable_message_count) {
 			throw new Error('Message line is greater than Addable Message.')
 		}
 
@@ -555,8 +555,8 @@ module.exports.PUBLISH_EPISODE = async (req, res) => {
 
 			const episodeParam = {
 				...body,
-				snap_context: episode.context,
-				first_time_context: episode.context,
+				snap_context: episode.snap_context,
+				first_time_context: episode.snap_context,
 				is_editable: false
 			}
 
