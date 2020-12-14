@@ -36,7 +36,10 @@ router.put('/:id/update-context', isAuthMiddleware, EpisodeController.UPDATE_CON
  * @route /api/v{Num}/episode/{id}
  * @method GET
  */
-router.get('/:id', isAuthMiddleware, EpisodeController.GET_EPISODE_BY_ID)
+router.get(
+	'/:id',
+	// isAuthMiddleware,
+	EpisodeController.GET_EPISODE_BY_ID)
 
 /**
  * @doc : GET Episode by short
